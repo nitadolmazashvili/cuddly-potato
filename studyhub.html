@@ -1,0 +1,3088 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-text-size="medium">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="StudyHub - All-in-one study organizer for students in Georgia and worldwide">
+<title>StudyHub – Your Study Organizer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Noto+Sans+Georgian:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ========== CSS CUSTOM PROPERTIES ========== */
+:root {
+  /* Colors - Light */
+  --bg-primary: #ffffff;
+  --bg-secondary: #f8fafc;
+  --bg-tertiary: #f1f5f9;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f8fafc;
+  --bg-overlay: rgba(0,0,0,0.5);
+  --bg-gradient-start: #4f46e5;
+  --bg-gradient-end: #0d9488;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-tertiary: #94a3b8;
+  --text-inverse: #ffffff;
+  --border-color: #e2e8f0;
+  --border-focus: #4f46e5;
+  --accent-primary: #4f46e5;
+  --accent-secondary: #0d9488;
+  --accent-warning: #f59e0b;
+  --accent-danger: #ef4444;
+  --accent-success: #10b981;
+  --accent-info: #3b82f6;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
+  --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+  --font-family: 'Inter', 'Noto Sans Georgian', system-ui, sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --line-height: 1.6;
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+  --sidebar-width: 260px;
+  --header-height: 64px;
+  --bottom-nav-height: 64px;
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  --bg-primary: #0f172a;
+  --bg-secondary: #1e293b;
+  --bg-tertiary: #334155;
+  --bg-card: #1e293b;
+  --bg-card-hover: #334155;
+  --text-primary: #f1f5f9;
+  --text-secondary: #cbd5e1;
+  --text-tertiary: #64748b;
+  --border-color: #334155;
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.4);
+  --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.4);
+  --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.5);
+}
+
+/* High contrast */
+[data-high-contrast="true"] {
+  --text-primary: #000000;
+  --text-secondary: #1a1a1a;
+  --border-color: #000000;
+  --bg-card: #ffffff;
+  --bg-primary: #ffffff;
+  --accent-primary: #0000cc;
+}
+[data-high-contrast="true"][data-theme="dark"] {
+  --text-primary: #ffffff;
+  --text-secondary: #e0e0e0;
+  --border-color: #ffffff;
+  --bg-card: #000000;
+  --bg-primary: #000000;
+  --accent-primary: #6699ff;
+}
+
+/* Text size adjustments */
+[data-text-size="small"] { --font-size-base: 0.875rem; }
+[data-text-size="medium"] { --font-size-base: 1rem; }
+[data-text-size="large"] { --font-size-base: 1.125rem; }
+[data-text-size="extra-large"] { --font-size-base: 1.3rem; }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+[data-reduced-motion="true"] *, [data-reduced-motion="true"] *::before, [data-reduced-motion="true"] *::after {
+  animation-duration: 0.01ms !important; transition-duration: 0.01ms !important;
+}
+
+/* ========== RESET & BASE ========== */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: var(--font-size-base); }
+body {
+  font-family: var(--font-family);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: var(--line-height);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--accent-primary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+button, input, select, textarea { font-family: inherit; font-size: inherit; }
+button { cursor: pointer; border: none; background: none; color: inherit; }
+img { max-width: 100%; display: block; }
+ul, ol { list-style: none; }
+h1,h2,h3,h4,h5,h6 { line-height: 1.3; font-weight: 700; }
+h1 { font-size: var(--font-size-4xl); }
+h2 { font-size: var(--font-size-3xl); }
+h3 { font-size: var(--font-size-2xl); }
+h4 { font-size: var(--font-size-xl); }
+
+/* ========== SKIP LINK ========== */
+.skip-link {
+  position: absolute; top: -100%; left: 16px; z-index: 10000;
+  padding: 12px 24px; background: var(--accent-primary); color: white;
+  border-radius: var(--radius-md); font-weight: 600;
+  transition: top var(--transition-fast);
+}
+.skip-link:focus { top: 16px; outline: 3px solid var(--accent-warning); outline-offset: 2px; }
+
+/* ========== FOCUS STYLES ========== */
+:focus-visible {
+  outline: 3px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* ========== UTILITY ========== */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+.hidden { display: none !important; }
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.justify-between { justify-content: space-between; }
+.gap-1 { gap: 4px; }
+.gap-2 { gap: 8px; }
+.gap-3 { gap: 12px; }
+.gap-4 { gap: 16px; }
+.gap-6 { gap: 24px; }
+.grid { display: grid; }
+.text-center { text-align: center; }
+.w-full { width: 100%; }
+.mt-2 { margin-top: 8px; }
+.mt-4 { margin-top: 16px; }
+.mb-2 { margin-bottom: 8px; }
+.mb-4 { margin-bottom: 16px; }
+.p-4 { padding: 16px; }
+.p-6 { padding: 24px; }
+
+/* ========== BUTTONS ========== */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 12px 24px; border-radius: var(--radius-md); font-weight: 600;
+  min-height: 44px; min-width: 44px; transition: all var(--transition-fast);
+  white-space: nowrap; font-size: var(--font-size-sm);
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+  color: white; box-shadow: var(--shadow-md);
+}
+.btn-primary:hover { transform: translateY(-1px); box-shadow: var(--shadow-lg); }
+.btn-secondary {
+  background: var(--bg-tertiary); color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+.btn-secondary:hover { background: var(--bg-card-hover); }
+.btn-outline {
+  background: transparent; color: var(--accent-primary);
+  border: 2px solid var(--accent-primary);
+}
+.btn-outline:hover { background: var(--accent-primary); color: white; }
+.btn-danger { background: var(--accent-danger); color: white; }
+.btn-danger:hover { opacity: 0.9; }
+.btn-sm { padding: 8px 16px; min-height: 36px; font-size: var(--font-size-xs); }
+.btn-lg { padding: 16px 32px; font-size: var(--font-size-lg); }
+.btn-icon {
+  padding: 10px; min-height: 44px; min-width: 44px;
+  border-radius: var(--radius-full);
+}
+.btn-icon:hover { background: var(--bg-tertiary); }
+
+/* ========== CARDS ========== */
+.card {
+  background: var(--bg-card); border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg); padding: 24px; box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+}
+.card:hover { box-shadow: var(--shadow-md); }
+.card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.card-title { font-size: var(--font-size-lg); font-weight: 700; }
+
+/* ========== FORMS ========== */
+.form-group { margin-bottom: 16px; }
+.form-label { display: block; margin-bottom: 6px; font-weight: 500; font-size: var(--font-size-sm); color: var(--text-secondary); }
+.form-input, .form-select, .form-textarea {
+  width: 100%; padding: 12px 16px; border: 2px solid var(--border-color);
+  border-radius: var(--radius-md); background: var(--bg-primary); color: var(--text-primary);
+  transition: border-color var(--transition-fast); min-height: 44px;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus { border-color: var(--accent-primary); outline: none; }
+.form-textarea { min-height: 100px; resize: vertical; }
+.form-select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23475569' d='M6 8L1 3h10z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 36px; }
+
+/* ========== BADGES ========== */
+.badge {
+  display: inline-flex; align-items: center; padding: 4px 10px;
+  border-radius: var(--radius-full); font-size: var(--font-size-xs); font-weight: 600;
+}
+.badge-success { background: #dcfce7; color: #166534; }
+.badge-warning { background: #fef3c7; color: #92400e; }
+.badge-danger { background: #fee2e2; color: #991b1b; }
+.badge-info { background: #dbeafe; color: #1e40af; }
+[data-theme="dark"] .badge-success { background: #166534; color: #dcfce7; }
+[data-theme="dark"] .badge-warning { background: #92400e; color: #fef3c7; }
+[data-theme="dark"] .badge-danger { background: #991b1b; color: #fee2e2; }
+[data-theme="dark"] .badge-info { background: #1e40af; color: #dbeafe; }
+
+/* ========== PROGRESS BAR ========== */
+.progress-bar { height: 8px; background: var(--bg-tertiary); border-radius: var(--radius-full); overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--bg-gradient-start), var(--bg-gradient-end)); border-radius: var(--radius-full); transition: width var(--transition-slow); }
+
+/* ========== HEADER ========== */
+.app-header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  height: var(--header-height); background: var(--bg-card);
+  border-bottom: 1px solid var(--border-color);
+  display: flex; align-items: center; padding: 0 24px;
+  backdrop-filter: blur(12px); background: rgba(255,255,255,0.9);
+}
+[data-theme="dark"] .app-header { background: rgba(15,23,42,0.9); }
+.header-logo { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: var(--font-size-xl); }
+.header-logo svg { width: 32px; height: 32px; }
+.header-logo-text {
+  background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.header-nav { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.header-nav-btn {
+  padding: 8px 16px; border-radius: var(--radius-md); font-weight: 500;
+  min-height: 44px; display: flex; align-items: center; gap: 6px; font-size: var(--font-size-sm);
+}
+.header-nav-btn:hover { background: var(--bg-tertiary); }
+.lang-switch { padding: 6px 12px; border-radius: var(--radius-md); border: 1px solid var(--border-color); font-weight: 600; min-height: 44px; display: flex; align-items: center; background: var(--bg-secondary); }
+
+/* ========== SIDEBAR (Desktop) ========== */
+.sidebar {
+  position: fixed; left: 0; top: var(--header-height); bottom: 0;
+  width: var(--sidebar-width); background: var(--bg-card);
+  border-right: 1px solid var(--border-color); overflow-y: auto;
+  padding: 16px 12px; z-index: 900; display: none;
+}
+.sidebar-nav-item {
+  display: flex; align-items: center; gap: 12px; padding: 12px 16px;
+  border-radius: var(--radius-md); font-weight: 500; color: var(--text-secondary);
+  min-height: 44px; width: 100%; text-align: left; transition: all var(--transition-fast);
+  margin-bottom: 2px; font-size: var(--font-size-sm);
+}
+.sidebar-nav-item:hover { background: var(--bg-tertiary); color: var(--text-primary); }
+.sidebar-nav-item.active { background: linear-gradient(135deg, rgba(79,70,229,0.1), rgba(13,148,136,0.1)); color: var(--accent-primary); font-weight: 600; }
+.sidebar-nav-item svg { width: 20px; height: 20px; flex-shrink: 0; }
+.sidebar-section-title { font-size: var(--font-size-xs); font-weight: 600; color: var(--text-tertiary); padding: 16px 16px 8px; text-transform: uppercase; letter-spacing: 0.05em; }
+
+/* ========== BOTTOM NAV (Mobile) ========== */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 1000;
+  height: var(--bottom-nav-height); background: var(--bg-card);
+  border-top: 1px solid var(--border-color); display: flex;
+  align-items: center; justify-content: space-around; padding: 0 8px;
+}
+.bottom-nav-item {
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 8px 4px; min-height: 44px; min-width: 44px; border-radius: var(--radius-md);
+  color: var(--text-tertiary); font-size: 10px; font-weight: 500; transition: color var(--transition-fast);
+}
+.bottom-nav-item.active { color: var(--accent-primary); }
+.bottom-nav-item svg { width: 22px; height: 22px; }
+
+/* ========== MAIN CONTENT ========== */
+.main-content {
+  margin-top: var(--header-height);
+  min-height: calc(100vh - var(--header-height));
+  padding-bottom: var(--bottom-nav-height);
+}
+@media (min-width: 768px) {
+  .main-content { margin-left: var(--sidebar-width); padding-bottom: 0; }
+  .sidebar { display: block; }
+  .bottom-nav { display: none; }
+  .main-content { padding-bottom: 0; }
+}
+.view-container { padding: 24px; max-width: 1200px; margin: 0 auto; }
+@media (max-width: 767px) { .view-container { padding: 16px; } }
+
+/* ========== VIEWS ========== */
+.view { display: none; }
+.view.active { display: block; animation: fadeIn var(--transition-base); }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+/* ========== LANDING PAGE ========== */
+.landing-hero {
+  min-height: calc(100vh - var(--header-height));
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, rgba(79,70,229,0.05), rgba(13,148,136,0.05));
+  padding: 60px 24px; text-align: center;
+}
+.hero-content { max-width: 800px; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px; padding: 8px 16px;
+  background: rgba(79,70,229,0.1); border-radius: var(--radius-full);
+  color: var(--accent-primary); font-weight: 600; font-size: var(--font-size-sm); margin-bottom: 24px;
+}
+.hero-title { font-size: clamp(2rem, 5vw, 3.5rem); margin-bottom: 20px; line-height: 1.2; }
+.hero-title span {
+  background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.hero-subtitle { font-size: var(--font-size-lg); color: var(--text-secondary); margin-bottom: 32px; max-width: 600px; margin-left: auto; margin-right: auto; }
+.hero-actions { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+.landing-features {
+  padding: 80px 24px; max-width: 1100px; margin: 0 auto;
+}
+.section-header { text-align: center; margin-bottom: 48px; }
+.section-header h2 { margin-bottom: 12px; }
+.section-header p { color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; }
+.feature-card { padding: 32px; text-align: center; }
+.feature-icon {
+  width: 56px; height: 56px; border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, rgba(79,70,229,0.1), rgba(13,148,136,0.1));
+  margin: 0 auto 16px; font-size: 24px;
+}
+
+.landing-geo-section {
+  padding: 80px 24px;
+  background: linear-gradient(135deg, rgba(79,70,229,0.03), rgba(13,148,136,0.03));
+}
+.geo-content { max-width: 900px; margin: 0 auto; text-align: center; }
+.geo-flags { display: flex; justify-content: center; gap: 16px; margin: 24px 0; flex-wrap: wrap; }
+.geo-flag-item {
+  display: flex; align-items: center; gap: 8px; padding: 8px 16px;
+  background: var(--bg-card); border-radius: var(--radius-full); border: 1px solid var(--border-color);
+  font-size: var(--font-size-sm);
+}
+
+.faq-section { padding: 80px 24px; max-width: 800px; margin: 0 auto; }
+.faq-item { border-bottom: 1px solid var(--border-color); padding: 20px 0; }
+.faq-question {
+  display: flex; align-items: center; justify-content: space-between; width: 100%;
+  font-weight: 600; font-size: var(--font-size-lg); min-height: 44px; text-align: left;
+}
+.faq-question svg { width: 20px; height: 20px; transition: transform var(--transition-fast); flex-shrink: 0; }
+.faq-item.open .faq-question svg { transform: rotate(180deg); }
+.faq-answer { padding: 12px 0; color: var(--text-secondary); display: none; }
+.faq-item.open .faq-answer { display: block; }
+
+.privacy-section {
+  padding: 60px 24px; max-width: 700px; margin: 0 auto; text-align: center;
+}
+.privacy-shield {
+  width: 80px; height: 80px; border-radius: var(--radius-full);
+  background: linear-gradient(135deg, rgba(79,70,229,0.1), rgba(13,148,136,0.1));
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 20px; font-size: 36px;
+}
+
+/* ========== ONBOARDING ========== */
+.onboarding-container {
+  max-width: 560px; margin: 0 auto; padding: 40px 24px;
+  min-height: calc(100vh - var(--header-height));
+  display: flex; flex-direction: column; justify-content: center;
+}
+.onboarding-step { display: none; }
+.onboarding-step.active { display: block; animation: fadeIn var(--transition-base); }
+.onboarding-progress { display: flex; gap: 8px; margin-bottom: 32px; }
+.onboarding-progress-dot {
+  flex: 1; height: 4px; border-radius: var(--radius-full);
+  background: var(--bg-tertiary);
+}
+.onboarding-progress-dot.completed { background: var(--accent-primary); }
+.onboarding-progress-dot.current { background: linear-gradient(90deg, var(--bg-gradient-start), var(--bg-gradient-end)); }
+.onboarding-title { margin-bottom: 8px; }
+.onboarding-subtitle { color: var(--text-secondary); margin-bottom: 24px; }
+.option-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+.option-card {
+  padding: 16px; border: 2px solid var(--border-color); border-radius: var(--radius-md);
+  text-align: center; cursor: pointer; transition: all var(--transition-fast);
+  font-weight: 500; min-height: 44px;
+}
+.option-card:hover { border-color: var(--accent-primary); background: rgba(79,70,229,0.05); }
+.option-card.selected { border-color: var(--accent-primary); background: rgba(79,70,229,0.1); }
+.onboarding-actions { display: flex; gap: 12px; margin-top: 32px; }
+
+/* ========== DASHBOARD ========== */
+.dashboard-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+@media (min-width: 768px) { .dashboard-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .dashboard-grid { grid-template-columns: repeat(3, 1fr); } }
+.stat-card { padding: 20px; }
+.stat-value { font-size: var(--font-size-3xl); font-weight: 800; }
+.stat-label { font-size: var(--font-size-sm); color: var(--text-secondary); margin-top: 4px; }
+.stat-change { font-size: var(--font-size-xs); margin-top: 8px; display: flex; align-items: center; gap: 4px; }
+.stat-change.up { color: var(--accent-success); }
+.stat-change.down { color: var(--accent-danger); }
+.streak-fire { color: #f59e0b; }
+
+.schedule-list { display: flex; flex-direction: column; gap: 12px; }
+.schedule-item {
+  display: flex; align-items: center; gap: 12px; padding: 12px;
+  background: var(--bg-secondary); border-radius: var(--radius-md);
+}
+.schedule-time { font-weight: 700; font-size: var(--font-size-sm); min-width: 50px; color: var(--accent-primary); }
+.schedule-subject { font-weight: 600; }
+.schedule-room { font-size: var(--font-size-xs); color: var(--text-secondary); }
+
+.deadline-item {
+  display: flex; align-items: center; gap: 12px; padding: 12px;
+  background: var(--bg-secondary); border-radius: var(--radius-md);
+}
+.deadline-date { font-size: var(--font-size-xs); font-weight: 700; padding: 6px 10px; border-radius: var(--radius-sm); min-width: 52px; text-align: center; }
+.deadline-date.urgent { background: var(--accent-danger); color: white; }
+.deadline-date.soon { background: var(--accent-warning); color: white; }
+.deadline-date.normal { background: var(--accent-info); color: white; }
+.deadline-info { flex: 1; }
+.deadline-title { font-weight: 600; font-size: var(--font-size-sm); }
+.deadline-subject { font-size: var(--font-size-xs); color: var(--text-secondary); }
+
+/* AI Suggests Card */
+.ai-suggest-card {
+  background: linear-gradient(135deg, rgba(79,70,229,0.08), rgba(13,148,136,0.08));
+  border: 1px solid rgba(79,70,229,0.2);
+}
+.ai-suggest-card .card-title { display: flex; align-items: center; gap: 8px; }
+.ai-suggestion { padding: 12px; background: var(--bg-card); border-radius: var(--radius-md); margin-top: 12px; }
+.ai-suggestion-text { font-size: var(--font-size-sm); color: var(--text-secondary); }
+
+/* ========== CHART (SVG) ========== */
+.chart-container { width: 100%; height: 200px; position: relative; }
+.chart-container svg { width: 100%; height: 100%; }
+
+/* ========== CONNECTED ACCOUNTS ========== */
+.connectors-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.connector-card { padding: 20px; }
+.connector-icon { width: 48px; height: 48px; border-radius: var(--radius-md); display: flex; align-items: center; justify-content: center; font-size: 24px; margin-bottom: 12px; }
+.connector-name { font-weight: 700; margin-bottom: 4px; }
+.connector-desc { font-size: var(--font-size-sm); color: var(--text-secondary); margin-bottom: 12px; }
+.connector-status { font-size: var(--font-size-xs); }
+.connector-actions { display: flex; gap: 8px; margin-top: 12px; }
+
+/* ========== PLANNER ========== */
+.planner-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px; }
+.planner-nav { display: flex; align-items: center; gap: 12px; }
+.planner-week { font-weight: 700; font-size: var(--font-size-lg); }
+.week-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+@media (max-width: 767px) { .week-grid { grid-template-columns: 1fr; } }
+.day-column { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 12px; min-height: 200px; }
+.day-header { font-weight: 700; font-size: var(--font-size-sm); margin-bottom: 8px; text-align: center; padding-bottom: 8px; border-bottom: 1px solid var(--border-color); }
+.day-today .day-header { color: var(--accent-primary); border-bottom-color: var(--accent-primary); }
+.task-card {
+  padding: 8px 12px; border-radius: var(--radius-sm); margin-bottom: 6px;
+  font-size: var(--font-size-xs); font-weight: 500; cursor: grab;
+  border-left: 3px solid var(--accent-primary); background: var(--bg-secondary);
+}
+.task-card.high { border-left-color: var(--accent-danger); }
+.task-card.medium { border-left-color: var(--accent-warning); }
+.task-card.low { border-left-color: var(--accent-success); }
+.task-card.dragging { opacity: 0.5; }
+
+/* ========== GRADES ========== */
+.grades-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+.grade-card { padding: 20px; }
+.grade-subject { font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.grade-dot { width: 10px; height: 10px; border-radius: 50%; }
+.grade-average { font-size: var(--font-size-3xl); font-weight: 800; }
+.grade-trend { font-size: var(--font-size-sm); margin-top: 8px; }
+.grade-target { font-size: var(--font-size-xs); color: var(--text-secondary); margin-top: 4px; }
+
+/* ========== LIBRARY ========== */
+.library-shelf { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; }
+.book-card { text-align: center; cursor: pointer; transition: transform var(--transition-fast); }
+.book-card:hover { transform: translateY(-4px); }
+.book-cover {
+  width: 100%; aspect-ratio: 3/4; border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+  display: flex; align-items: center; justify-content: center; color: white;
+  font-weight: 700; font-size: var(--font-size-sm); padding: 16px; text-align: center;
+  margin-bottom: 8px; box-shadow: var(--shadow-md);
+}
+.book-title { font-weight: 600; font-size: var(--font-size-sm); }
+.book-author { font-size: var(--font-size-xs); color: var(--text-secondary); }
+
+/* ========== AI CHAT ========== */
+.chat-floating-btn {
+  position: fixed; bottom: 80px; right: 20px; z-index: 999;
+  width: 56px; height: 56px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+  color: white; display: flex; align-items: center; justify-content: center;
+  box-shadow: var(--shadow-lg); transition: transform var(--transition-fast);
+}
+.chat-floating-btn:hover { transform: scale(1.1); }
+.chat-floating-btn svg { width: 24px; height: 24px; }
+@media (min-width: 768px) { .chat-floating-btn { bottom: 24px; right: 24px; } }
+
+.chat-overlay {
+  position: fixed; inset: 0; z-index: 2000; background: var(--bg-overlay);
+  display: none; align-items: flex-end; justify-content: center;
+}
+.chat-overlay.open { display: flex; }
+.chat-panel {
+  width: 100%; max-width: 600px; height: 100%; background: var(--bg-card);
+  display: flex; flex-direction: column; animation: slideUp var(--transition-base);
+}
+@media (min-width: 768px) {
+  .chat-overlay { align-items: center; }
+  .chat-panel { height: 80vh; max-height: 700px; border-radius: var(--radius-xl); overflow: hidden; }
+}
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.chat-header {
+  padding: 16px 20px; border-bottom: 1px solid var(--border-color);
+  display: flex; align-items: center; justify-content: space-between;
+  background: linear-gradient(135deg, rgba(79,70,229,0.05), rgba(13,148,136,0.05));
+}
+.chat-header-title { display: flex; align-items: center; gap: 10px; font-weight: 700; }
+.chat-avatar { width: 36px; height: 36px; border-radius: 50%; background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end)); display: flex; align-items: center; justify-content: center; color: white; font-size: 18px; }
+.chat-messages { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+.chat-message { display: flex; gap: 10px; max-width: 85%; }
+.chat-message.user { margin-left: auto; flex-direction: row-reverse; }
+.chat-msg-avatar { width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 14px; }
+.chat-message.assistant .chat-msg-avatar { background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end)); color: white; }
+.chat-message.user .chat-msg-avatar { background: var(--bg-tertiary); }
+.chat-msg-bubble { padding: 12px 16px; border-radius: var(--radius-lg); font-size: var(--font-size-sm); line-height: 1.5; }
+.chat-message.assistant .chat-msg-bubble { background: var(--bg-secondary); border-bottom-left-radius: 4px; }
+.chat-message.user .chat-msg-bubble { background: var(--accent-primary); color: white; border-bottom-right-radius: 4px; }
+.chat-msg-actions { display: flex; gap: 4px; margin-top: 6px; }
+.chat-msg-action-btn { font-size: var(--font-size-xs); padding: 4px 8px; border-radius: var(--radius-sm); color: var(--text-tertiary); min-height: 28px; }
+.chat-msg-action-btn:hover { background: var(--bg-tertiary); color: var(--text-primary); }
+.chat-typing { display: flex; gap: 4px; padding: 12px 16px; }
+.chat-typing-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--text-tertiary); animation: typingBounce 1.4s infinite; }
+.chat-typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.chat-typing-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes typingBounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
+.chat-suggestions { display: flex; gap: 8px; flex-wrap: wrap; padding: 8px 20px; }
+.chat-suggestion-btn {
+  padding: 8px 14px; border-radius: var(--radius-full); background: var(--bg-secondary);
+  border: 1px solid var(--border-color); font-size: var(--font-size-xs); font-weight: 500;
+  min-height: 36px; transition: all var(--transition-fast);
+}
+.chat-suggestion-btn:hover { border-color: var(--accent-primary); background: rgba(79,70,229,0.05); }
+.chat-input-area {
+  padding: 16px 20px; border-top: 1px solid var(--border-color);
+  display: flex; gap: 10px; align-items: flex-end;
+}
+.chat-input-wrapper { flex: 1; position: relative; }
+.chat-input {
+  width: 100%; padding: 12px 16px; border: 2px solid var(--border-color);
+  border-radius: var(--radius-lg); background: var(--bg-secondary); color: var(--text-primary);
+  resize: none; min-height: 44px; max-height: 120px;
+}
+.chat-input:focus { border-color: var(--accent-primary); outline: none; }
+.chat-send-btn {
+  width: 44px; height: 44px; border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+  color: white; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.chat-send-btn:hover { opacity: 0.9; }
+.chat-mode-tabs { display: flex; gap: 6px; padding: 12px 20px; overflow-x: auto; border-bottom: 1px solid var(--border-color); }
+.chat-mode-tab {
+  padding: 6px 14px; border-radius: var(--radius-full); font-size: var(--font-size-xs);
+  font-weight: 500; white-space: nowrap; min-height: 32px; background: var(--bg-secondary);
+  border: 1px solid var(--border-color); transition: all var(--transition-fast);
+}
+.chat-mode-tab.active { background: var(--accent-primary); color: white; border-color: var(--accent-primary); }
+
+/* ========== PRACTICE & FLASHCARDS ========== */
+.quiz-container { max-width: 600px; margin: 0 auto; }
+.quiz-question { font-size: var(--font-size-lg); font-weight: 600; margin-bottom: 20px; }
+.quiz-options { display: flex; flex-direction: column; gap: 10px; }
+.quiz-option {
+  padding: 16px 20px; border: 2px solid var(--border-color); border-radius: var(--radius-md);
+  text-align: left; min-height: 44px; transition: all var(--transition-fast); font-weight: 500;
+}
+.quiz-option:hover { border-color: var(--accent-primary); }
+.quiz-option.correct { border-color: var(--accent-success); background: rgba(16,185,129,0.1); }
+.quiz-option.incorrect { border-color: var(--accent-danger); background: rgba(239,68,68,0.1); }
+.quiz-feedback { padding: 16px; border-radius: var(--radius-md); margin-top: 16px; font-size: var(--font-size-sm); }
+.quiz-feedback.correct { background: rgba(16,185,129,0.1); color: #065f46; }
+.quiz-feedback.incorrect { background: rgba(239,68,68,0.1); color: #991b1b; }
+[data-theme="dark"] .quiz-feedback.correct { color: #86efac; }
+[data-theme="dark"] .quiz-feedback.incorrect { color: #fca5a5; }
+
+.flashcard-container { max-width: 500px; margin: 0 auto; perspective: 1000px; }
+.flashcard {
+  width: 100%; min-height: 250px; cursor: pointer; position: relative;
+  transform-style: preserve-3d; transition: transform 0.6s;
+}
+.flashcard.flipped { transform: rotateY(180deg); }
+.flashcard-face {
+  position: absolute; inset: 0; backface-visibility: hidden;
+  display: flex; align-items: center; justify-content: center; padding: 32px;
+  border-radius: var(--radius-xl); font-size: var(--font-size-xl); font-weight: 600;
+  text-align: center; box-shadow: var(--shadow-lg);
+}
+.flashcard-front { background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end)); color: white; }
+.flashcard-back { background: var(--bg-card); border: 2px solid var(--border-color); transform: rotateY(180deg); }
+.flashcard-nav { display: flex; justify-content: center; gap: 12px; margin-top: 24px; }
+
+/* ========== FOCUS TOOLS ========== */
+.pomodoro-container { text-align: center; max-width: 400px; margin: 0 auto; }
+.pomodoro-timer {
+  width: 250px; height: 250px; border-radius: 50%; margin: 32px auto;
+  background: var(--bg-card); border: 4px solid var(--border-color);
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; box-shadow: var(--shadow-xl); position: relative;
+}
+.pomodoro-time { font-size: var(--font-size-4xl); font-weight: 800; font-variant-numeric: tabular-nums; }
+.pomodoro-label { font-size: var(--font-size-sm); color: var(--text-secondary); margin-top: 4px; }
+.pomodoro-controls { display: flex; justify-content: center; gap: 12px; margin-top: 24px; }
+.pomodoro-ring {
+  position: absolute; inset: -4px; border-radius: 50%;
+}
+.pomodoro-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+.pomodoro-ring circle { fill: none; stroke-width: 4; stroke-linecap: round; }
+.pomodoro-ring .ring-bg { stroke: var(--border-color); }
+.pomodoro-ring .ring-progress { stroke: var(--accent-primary); transition: stroke-dashoffset 1s linear; }
+
+.streak-badges { display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; margin-top: 24px; }
+.streak-badge {
+  padding: 12px 20px; border-radius: var(--radius-md); text-align: center;
+  background: var(--bg-card); border: 1px solid var(--border-color); min-width: 100px;
+}
+.streak-badge.earned { border-color: var(--accent-warning); background: rgba(245,158,11,0.05); }
+.streak-badge-icon { font-size: 24px; margin-bottom: 4px; }
+.streak-badge-label { font-size: var(--font-size-xs); font-weight: 600; }
+
+/* ========== SETTINGS ========== */
+.settings-section { margin-bottom: 32px; }
+.settings-title { font-weight: 700; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border-color); }
+.settings-row {
+  display: flex; align-items: center; justify-content: space-between; padding: 12px 0;
+  border-bottom: 1px solid var(--border-color); min-height: 44px;
+}
+.settings-row-label { font-weight: 500; }
+.settings-row-desc { font-size: var(--font-size-xs); color: var(--text-secondary); margin-top: 2px; }
+/* Toggle Switch */
+.toggle { position: relative; width: 48px; height: 28px; flex-shrink: 0; }
+.toggle input { display: none; }
+.toggle-slider {
+  position: absolute; inset: 0; background: var(--bg-tertiary);
+  border-radius: var(--radius-full); transition: background var(--transition-fast); cursor: pointer;
+}
+.toggle-slider::before {
+  content: ''; position: absolute; width: 22px; height: 22px; border-radius: 50%;
+  background: white; top: 3px; left: 3px; transition: transform var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+.toggle input:checked + .toggle-slider { background: var(--accent-primary); }
+.toggle input:checked + .toggle-slider::before { transform: translateX(20px); }
+
+/* ========== MODAL ========== */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 3000; background: var(--bg-overlay);
+  display: none; align-items: center; justify-content: center; padding: 24px;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--bg-card); border-radius: var(--radius-xl); width: 100%; max-width: 500px;
+  max-height: 90vh; overflow-y: auto; animation: fadeIn var(--transition-base);
+}
+.modal-header { padding: 20px 24px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; }
+.modal-title { font-weight: 700; font-size: var(--font-size-lg); }
+.modal-body { padding: 24px; }
+.modal-footer { padding: 16px 24px; border-top: 1px solid var(--border-color); display: flex; gap: 12px; justify-content: flex-end; }
+
+/* ========== TOAST ========== */
+.toast-container { position: fixed; bottom: 100px; right: 20px; z-index: 5000; display: flex; flex-direction: column; gap: 8px; }
+@media (max-width: 767px) { .toast-container { bottom: 80px; right: 16px; left: 16px; } }
+.toast {
+  padding: 14px 20px; border-radius: var(--radius-md); background: var(--bg-card);
+  border: 1px solid var(--border-color); box-shadow: var(--shadow-lg);
+  display: flex; align-items: center; gap: 10px; min-height: 44px;
+  animation: slideIn var(--transition-base); font-size: var(--font-size-sm); font-weight: 500;
+}
+@keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+.toast.success { border-left: 4px solid var(--accent-success); }
+.toast.error { border-left: 4px solid var(--accent-danger); }
+.toast.info { border-left: 4px solid var(--accent-info); }
+
+/* ========== SKELETON LOADER ========== */
+.skeleton { background: linear-gradient(90deg, var(--bg-tertiary) 25%, var(--bg-secondary) 50%, var(--bg-tertiary) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; border-radius: var(--radius-sm); }
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+.skeleton-text { height: 16px; margin-bottom: 8px; }
+.skeleton-title { height: 24px; width: 60%; margin-bottom: 12px; }
+.skeleton-card { height: 120px; border-radius: var(--radius-md); }
+
+/* ========== NOTIFICATION ========== */
+.notif-badge {
+  position: absolute; top: -2px; right: -2px; width: 18px; height: 18px;
+  background: var(--accent-danger); color: white; border-radius: 50%;
+  font-size: 10px; display: flex; align-items: center; justify-content: center; font-weight: 700;
+}
+
+/* ========== NOTIFICATION CENTER ========== */
+.notif-panel {
+  position: fixed; top: var(--header-height); right: 0; width: 360px; max-width: 100%;
+  height: calc(100vh - var(--header-height)); background: var(--bg-card);
+  border-left: 1px solid var(--border-color); z-index: 1500; overflow-y: auto;
+  transform: translateX(100%); transition: transform var(--transition-base);
+  box-shadow: var(--shadow-xl);
+}
+.notif-panel.open { transform: translateX(0); }
+.notif-panel-header { padding: 20px; border-bottom: 1px solid var(--border-color); display: flex; align-items: center; justify-content: space-between; }
+.notif-item { padding: 16px 20px; border-bottom: 1px solid var(--border-color); display: flex; gap: 12px; cursor: pointer; }
+.notif-item:hover { background: var(--bg-secondary); }
+.notif-item.unread { background: rgba(79,70,229,0.03); }
+.notif-icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 16px; }
+.notif-content { flex: 1; }
+.notif-title { font-weight: 600; font-size: var(--font-size-sm); }
+.notif-desc { font-size: var(--font-size-xs); color: var(--text-secondary); margin-top: 2px; }
+.notif-time { font-size: var(--font-size-xs); color: var(--text-tertiary); margin-top: 4px; }
+
+/* ========== PRODUCT TOUR ========== */
+.tour-overlay {
+  position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.7); display: none;
+}
+.tour-overlay.open { display: block; }
+.tour-tooltip {
+  position: fixed; z-index: 10000; background: var(--bg-card); border-radius: var(--radius-lg);
+  padding: 24px; max-width: 360px; box-shadow: var(--shadow-xl);
+}
+.tour-step-count { font-size: var(--font-size-xs); color: var(--accent-primary); font-weight: 600; margin-bottom: 8px; }
+.tour-title { font-weight: 700; margin-bottom: 8px; }
+.tour-desc { font-size: var(--font-size-sm); color: var(--text-secondary); margin-bottom: 16px; }
+.tour-actions { display: flex; gap: 8px; justify-content: flex-end; }
+
+/* ========== SEARCH ========== */
+.search-overlay {
+  position: fixed; inset: 0; z-index: 4000; background: var(--bg-overlay);
+  display: none; align-items: flex-start; justify-content: center; padding-top: 100px;
+}
+.search-overlay.open { display: flex; }
+.search-panel {
+  width: 100%; max-width: 600px; background: var(--bg-card);
+  border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-xl);
+  margin: 0 24px;
+}
+.search-input-wrapper { display: flex; align-items: center; padding: 16px 20px; gap: 12px; border-bottom: 1px solid var(--border-color); }
+.search-input { flex: 1; border: none; background: none; color: var(--text-primary); font-size: var(--font-size-lg); outline: none; }
+.search-results { max-height: 400px; overflow-y: auto; }
+.search-result-item { padding: 12px 20px; display: flex; align-items: center; gap: 12px; cursor: pointer; }
+.search-result-item:hover { background: var(--bg-secondary); }
+.search-result-icon { width: 36px; height: 36px; border-radius: var(--radius-sm); background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center; }
+.search-result-text { font-weight: 500; font-size: var(--font-size-sm); }
+.search-result-type { font-size: var(--font-size-xs); color: var(--text-tertiary); }
+
+/* ========== AUTH SCREEN ========== */
+.auth-container {
+  max-width: 440px; margin: 0 auto; padding: 60px 24px;
+  min-height: calc(100vh - var(--header-height));
+  display: flex; flex-direction: column; justify-content: center;
+}
+.auth-tabs { display: flex; margin-bottom: 24px; border-bottom: 2px solid var(--border-color); }
+.auth-tab { flex: 1; padding: 12px; text-align: center; font-weight: 600; color: var(--text-tertiary); border-bottom: 2px solid transparent; margin-bottom: -2px; min-height: 44px; }
+.auth-tab.active { color: var(--accent-primary); border-bottom-color: var(--accent-primary); }
+
+/* ========== ACCESSIBILITY PANEL ========== */
+.a11y-panel {
+  position: fixed; top: var(--header-height); right: 0; width: 340px; max-width: 100%;
+  height: calc(100vh - var(--header-height)); background: var(--bg-card);
+  border-left: 1px solid var(--border-color); z-index: 1500; overflow-y: auto;
+  transform: translateX(100%); transition: transform var(--transition-base);
+  box-shadow: var(--shadow-xl); padding: 24px;
+}
+.a11y-panel.open { transform: translateX(0); }
+.a11y-option { margin-bottom: 20px; }
+.a11y-option-label { font-weight: 600; font-size: var(--font-size-sm); margin-bottom: 8px; }
+.a11y-option-buttons { display: flex; gap: 6px; }
+.a11y-opt-btn {
+  padding: 8px 14px; border: 2px solid var(--border-color); border-radius: var(--radius-md);
+  font-size: var(--font-size-xs); font-weight: 500; min-height: 36px;
+}
+.a11y-opt-btn.active { border-color: var(--accent-primary); background: rgba(79,70,229,0.1); color: var(--accent-primary); }
+
+/* ========== ANIMATIONS ========== */
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+@keyframes spin { to { transform: rotate(360deg); } }
+.animate-pulse { animation: pulse 2s infinite; }
+.animate-spin { animation: spin 1s linear infinite; }
+
+/* ========== CONNECTION SUCCESS ANIMATION ========== */
+.connect-animation { text-align: center; padding: 40px 20px; }
+.connect-check {
+  width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 20px;
+  background: rgba(16,185,129,0.1); display: flex; align-items: center; justify-content: center;
+  animation: scaleIn 0.4s ease;
+}
+@keyframes scaleIn { from { transform: scale(0); } to { transform: scale(1); } }
+.connect-check svg { width: 40px; height: 40px; color: var(--accent-success); }
+
+/* ========== PRINT ========== */
+@media print {
+  .app-header, .sidebar, .bottom-nav, .chat-floating-btn, .toast-container { display: none !important; }
+  .main-content { margin-left: 0 !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- Skip Link -->
+<a href="#main-content" class="skip-link" data-i18n="skipToContent">Skip to content</a>
+
+<!-- ========== HEADER ========== -->
+<header class="app-header" role="banner">
+  <button class="btn-icon sidebar-toggle hidden" onclick="toggleSidebar()" aria-label="Toggle sidebar" style="display:none;">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+  </button>
+  <div class="header-logo">
+    <svg viewBox="0 0 32 32" fill="none"><defs><linearGradient id="lg" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#4f46e5"/><stop offset="1" stop-color="#0d9488"/></linearGradient></defs><rect width="32" height="32" rx="8" fill="url(#lg)"/><path d="M8 12l8-4 8 4-8 4-8-4z" fill="white" opacity="0.9"/><path d="M8 16l8 4 8-4" stroke="white" stroke-width="1.5" fill="none"/><path d="M8 20l8 4 8-4" stroke="white" stroke-width="1.5" fill="none"/></svg>
+    <span class="header-logo-text">StudyHub</span>
+  </div>
+  <nav class="header-nav" role="navigation" aria-label="Header navigation">
+    <button class="header-nav-btn" onclick="openSearch()" aria-label="Search">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+    </button>
+    <button class="header-nav-btn" onclick="toggleNotifications()" aria-label="Notifications" style="position:relative;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      <span class="notif-badge" id="notifBadge" aria-hidden="true">3</span>
+    </button>
+    <button class="lang-switch" onclick="toggleLanguage()" aria-label="Switch language" id="langBtn">
+      <span id="langLabel">KA</span>
+    </button>
+    <button class="btn-icon" onclick="toggleTheme()" aria-label="Toggle dark mode" id="themeBtn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" id="themeIcon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <button class="btn-icon" onclick="toggleA11yPanel()" aria-label="Accessibility settings">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="4" r="2"/><path d="M12 8v6m-4-2h8m-6 6l2-2 2 2"/></svg>
+    </button>
+  </nav>
+</header>
+
+<!-- ========== SIDEBAR (Desktop) ========== -->
+<aside class="sidebar" id="sidebar" role="navigation" aria-label="Main navigation">
+  <nav>
+    <div class="sidebar-section-title" data-i18n="navMain">Main</div>
+    <button class="sidebar-nav-item active" data-view="dashboard" onclick="navigateTo('dashboard')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      <span data-i18n="navDashboard">Dashboard</span>
+    </button>
+    <button class="sidebar-nav-item" data-view="planner" onclick="navigateTo('planner')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+      <span data-i18n="navPlanner">Planner</span>
+    </button>
+    <button class="sidebar-nav-item" data-view="grades" onclick="navigateTo('grades')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+      <span data-i18n="navGrades">Grades</span>
+    </button>
+    <button class="sidebar-nav-item" data-view="library" onclick="navigateTo('library')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+      <span data-i18n="navLibrary">Library</span>
+    </button>
+    <div class="sidebar-section-title" data-i18n="navTools">Tools</div>
+    <button class="sidebar-nav-item" data-view="practice" onclick="navigateTo('practice')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      <span data-i18n="navPractice">Practice</span>
+    </button>
+    <button class="sidebar-nav-item" data-view="focus" onclick="navigateTo('focus')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      <span data-i18n="navFocus">Focus</span>
+    </button>
+    <button class="sidebar-nav-item" data-view="accounts" onclick="navigateTo('accounts')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+      <span data-i18n="navAccounts">Accounts</span>
+    </button>
+    <div class="sidebar-section-title" data-i18n="navOther">Other</div>
+    <button class="sidebar-nav-item" data-view="settings" onclick="navigateTo('settings')">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      <span data-i18n="navSettings">Settings</span>
+    </button>
+  </nav>
+  <div style="padding: 16px; margin-top: auto;">
+    <div style="background: linear-gradient(135deg, rgba(79,70,229,0.1), rgba(13,148,136,0.1)); border-radius: var(--radius-md); padding: 16px;">
+      <div style="font-weight: 700; font-size: var(--font-size-sm);" data-i18n="xpLevel">Level 5 — Scholar</div>
+      <div style="font-size: var(--font-size-xs); color: var(--text-secondary); margin-top: 4px;">2,450 / 3,000 XP</div>
+      <div class="progress-bar" style="margin-top: 8px;"><div class="progress-fill" style="width: 82%;"></div></div>
+    </div>
+  </div>
+</aside>
+
+<!-- ========== MAIN CONTENT ========== -->
+<main class="main-content" id="main-content" role="main">
+
+  <!-- ===== LANDING VIEW ===== -->
+  <div class="view active" id="view-landing">
+    <section class="landing-hero">
+      <div class="hero-content">
+        <div class="hero-badge" data-i18n="heroBadge">🎓 Built for Students in Georgia & Worldwide</div>
+        <h1 class="hero-title"><span data-i18n="heroTitle1">Your Smart Study</span> <span data-i18n="heroTitle2">Companion</span></h1>
+        <p class="hero-subtitle" data-i18n="heroSubtitle">Connect your school accounts, track grades, plan your week, and get AI-powered study help — all in one place.</p>
+        <div class="hero-actions">
+          <button class="btn btn-primary btn-lg" onclick="navigateTo('auth')" data-i18n="heroCta">Get Started — It's Free</button>
+          <button class="btn btn-secondary btn-lg" onclick="navigateTo('auth')" data-i18n="heroCta2">Sign In</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="landing-features" aria-label="Features">
+      <div class="section-header">
+        <h2 data-i18n="featuresTitle">Everything You Need to Succeed</h2>
+        <p data-i18n="featuresSubtitle">From daily schedules to exam prep, StudyHub has you covered.</p>
+      </div>
+      <div class="features-grid">
+        <div class="card feature-card"><div class="feature-icon">📊</div><h4 data-i18n="feat1Title">Grades & Progress</h4><p style="color:var(--text-secondary);font-size:var(--font-size-sm);" data-i18n="feat1Desc">Track your grades across all subjects, spot trends, and set improvement goals.</p></div>
+        <div class="card feature-card"><div class="feature-icon">📅</div><h4 data-i18n="feat2Title">Smart Planner</h4><p style="color:var(--text-secondary);font-size:var(--font-size-sm);" data-i18n="feat2Desc">Auto-plan your week based on deadlines, exams, and weak subjects.</p></div>
+        <div class="card feature-card"><div class="feature-icon">🤖</div><h4 data-i18n="feat3Title">AI Study Assistant</h4><p style="color:var(--text-secondary);font-size:var(--font-size-sm);" data-i18n="feat3Desc">Get explanations, homework hints, flashcards, and quiz practice with AI.</p></div>
+        <div class="card feature-card"><div class="feature-icon">📚</div><h4 data-i18n="feat4Title">Digital Library</h4><p style="color:var(--text-secondary);font-size:var(--font-size-sm);" data-i18n="feat4Desc">Access textbooks, upload notes, highlight, and organize your study materials.</p></div>
+        <div class="card feature-card"><div class="feature-icon">🎯</div><h4 data-i18n="feat5Title">Focus Tools</h4><p style="color:var(--text-secondary);font-size:var(--font-size-sm);" data-i18n="feat5Desc">Pomodoro timer, study streaks, and ambient focus mode to stay productive.</p></div>
+        <div class="card feature-card"><div class="feature-icon">🔗</div><h4 data-i18n="feat6Title">Connected Accounts</h4><p style="color:var(--text-secondary);font-size:var(--font-size-sm);" data-i18n="feat6Desc">Link your school platforms and see everything synced in one dashboard.</p></div>
+      </div>
+    </section>
+
+    <section class="landing-geo-section" aria-label="Georgian and global support">
+      <div class="geo-content">
+        <h2 data-i18n="geoTitle">Works in Georgia and Worldwide</h2>
+        <p style="color:var(--text-secondary);margin-bottom:16px;" data-i18n="geoSubtitle">Built with Georgian students in mind, expanding to schools around the globe.</p>
+        <div class="geo-flags">
+          <span class="geo-flag-item">🇬🇪 <span data-i18n="geoGeorgia">Georgia</span></span>
+          <span class="geo-flag-item">🇺🇸 USA</span>
+          <span class="geo-flag-item">🇬🇧 UK</span>
+          <span class="geo-flag-item">🇩🇪 Germany</span>
+          <span class="geo-flag-item">🇹🇷 Turkey</span>
+          <span class="geo-flag-item">🇦🇿 Azerbaijan</span>
+          <span class="geo-flag-item">🇦🇲 Armenia</span>
+          <span class="geo-flag-item">🌍 <span data-i18n="geoMore">More coming...</span></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-section" aria-label="FAQ">
+      <div class="section-header"><h2 data-i18n="faqTitle">Frequently Asked Questions</h2></div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span data-i18n="faq1Q">Is StudyHub free?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-answer" data-i18n="faq1A">Yes! StudyHub is completely free for students. We offer premium features for power users, but the core experience is always free.</div></div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span data-i18n="faq2Q">Is my data safe?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-answer" data-i18n="faq2A">Absolutely. We never store your school passwords. Connections use official OAuth. Your data is encrypted and you can export or delete it anytime.</div></div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span data-i18n="faq3Q">Does it work with Georgian schools?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-answer" data-i18n="faq3A">Yes! We support Georgian e-school platforms, digital textbook systems, and are expanding to more integrations. Available in both Georgian and English.</div></div>
+      <div class="faq-item"><button class="faq-question" onclick="toggleFaq(this)" aria-expanded="false"><span data-i18n="faq4Q">Can parents see my data?</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button><div class="faq-answer" data-i18n="faq4A">You control what parents or guardians can see. There's a visibility toggle in settings, and we explain everything in plain language for minors.</div></div>
+    </section>
+
+    <section class="privacy-section" aria-label="Privacy and safety">
+      <div class="privacy-shield">🛡️</div>
+      <h2 data-i18n="privacyTitle">Privacy & Safety First</h2>
+      <p style="color:var(--text-secondary);margin-top:12px;" data-i18n="privacyDesc">We know many of our users are minors. That's why we never store school passwords, use encrypted connections, let you export or delete your data anytime, and explain everything in plain language. Your learning, your privacy.</p>
+      <button class="btn btn-primary mt-4" onclick="navigateTo('auth')" data-i18n="privacyCta">Start Studying Smarter</button>
+    </section>
+
+    <footer style="text-align:center;padding:40px 24px;color:var(--text-tertiary);font-size:var(--font-size-sm);border-top:1px solid var(--border-color);">
+      <p>© 2026 StudyHub. <span data-i18n="footerMade">Made with ❤️ for students everywhere.</span></p>
+    </footer>
+  </div>
+
+  <!-- ===== AUTH VIEW ===== -->
+  <div class="view" id="view-auth">
+    <div class="auth-container">
+      <h2 class="text-center mb-4" data-i18n="authTitle">Welcome to StudyHub</h2>
+      <div class="auth-tabs" role="tablist">
+        <button class="auth-tab active" role="tab" aria-selected="true" onclick="switchAuthTab('login')" data-i18n="authLogin">Log In</button>
+        <button class="auth-tab" role="tab" aria-selected="false" onclick="switchAuthTab('signup')" data-i18n="authSignup">Sign Up</button>
+      </div>
+      <div id="authLoginForm">
+        <div class="form-group"><label class="form-label" data-i18n="authEmail">Email</label><input class="form-input" type="email" id="loginEmail" placeholder="student@example.com" aria-required="true"></div>
+        <div class="form-group"><label class="form-label" data-i18n="authPassword">Password</label><input class="form-input" type="password" id="loginPassword" placeholder="••••••••" aria-required="true"></div>
+        <button class="btn btn-primary w-full mt-2" onclick="doLogin()" data-i18n="authLoginBtn">Log In</button>
+      </div>
+      <div id="authSignupForm" class="hidden">
+        <div class="form-group"><label class="form-label" data-i18n="authName">Full Name</label><input class="form-input" type="text" id="signupName" placeholder="Nino Beridze"></div>
+        <div class="form-group"><label class="form-label" data-i18n="authEmail">Email</label><input class="form-input" type="email" id="signupEmail" placeholder="student@example.com"></div>
+        <div class="form-group"><label class="form-label" data-i18n="authPassword">Password</label><input class="form-input" type="password" id="signupPassword" placeholder="••••••••"></div>
+        <div class="form-group"><label class="form-label" data-i18n="authRole">I am a...</label>
+          <select class="form-select" id="signupRole"><option value="school" data-i18n="authRoleSchool">School Student</option><option value="university" data-i18n="authRoleUni">University Student</option></select>
+        </div>
+        <button class="btn btn-primary w-full mt-2" onclick="doSignup()" data-i18n="authSignupBtn">Create Account</button>
+      </div>
+      <p class="text-center mt-4" style="font-size:var(--font-size-sm);color:var(--text-tertiary);" data-i18n="authDemo">This is a demo — no real account needed. Just click Log In or Sign Up to explore!</p>
+    </div>
+  </div>
+
+  <!-- ===== ONBOARDING VIEW ===== -->
+  <div class="view" id="view-onboarding">
+    <div class="onboarding-container">
+      <div class="onboarding-progress" role="progressbar">
+        <div class="onboarding-progress-dot current" id="oprog0"></div>
+        <div class="onboarding-progress-dot" id="oprog1"></div>
+        <div class="onboarding-progress-dot" id="oprog2"></div>
+        <div class="onboarding-progress-dot" id="oprog3"></div>
+      </div>
+
+      <div class="onboarding-step active" id="ostep0">
+        <h2 class="onboarding-title" data-i18n="onb1Title">Where are you from?</h2>
+        <p class="onboarding-subtitle" data-i18n="onb1Sub">Select your country so we can customize your experience.</p>
+        <div class="option-grid" id="countryGrid"></div>
+      </div>
+
+      <div class="onboarding-step" id="ostep1">
+        <h2 class="onboarding-title" data-i18n="onb2Title">What's your level?</h2>
+        <p class="onboarding-subtitle" data-i18n="onb2Sub">Tell us your school level and grade.</p>
+        <div class="form-group"><label class="form-label" data-i18n="onbLevel">School Level</label>
+          <select class="form-select" id="onbLevel"><option data-i18n="onbPrimary">Primary (1-6)</option><option data-i18n="onbMiddle">Middle School (7-9)</option><option data-i18n="onbHigh">High School (10-12)</option><option data-i18n="onbUni">University</option></select>
+        </div>
+        <div class="form-group"><label class="form-label" data-i18n="onbGrade">Grade / Year</label>
+          <select class="form-select" id="onbGrade"><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option selected>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option></select>
+        </div>
+      </div>
+
+      <div class="onboarding-step" id="ostep2">
+        <h2 class="onboarding-title" data-i18n="onb3Title">Your Subjects</h2>
+        <p class="onboarding-subtitle" data-i18n="onb3Sub">Pick the subjects you study.</p>
+        <div class="option-grid" id="subjectGrid"></div>
+      </div>
+
+      <div class="onboarding-step" id="ostep3">
+        <h2 class="onboarding-title" data-i18n="onb4Title">Study Goals</h2>
+        <p class="onboarding-subtitle" data-i18n="onb4Sub">What do you want to achieve?</p>
+        <div class="option-grid" id="goalGrid"></div>
+      </div>
+
+      <div class="onboarding-actions">
+        <button class="btn btn-secondary" id="onbBack" onclick="onboardingBack()" data-i18n="onbBack">Back</button>
+        <button class="btn btn-primary" id="onbNext" onclick="onboardingNext()" data-i18n="onbNext" style="flex:1;">Next</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== DASHBOARD VIEW ===== -->
+  <div class="view" id="view-dashboard">
+    <div class="view-container">
+      <h2 class="mb-2" data-i18n="dashWelcome">Good morning, Nino! 👋</h2>
+      <p style="color:var(--text-secondary);margin-bottom:24px;" data-i18n="dashSub">Here's what's happening with your studies today.</p>
+
+      <!-- Stats Row -->
+      <div class="dashboard-grid mb-4">
+        <div class="card stat-card">
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div><div class="stat-value" id="dashStreak">7 🔥</div><div class="stat-label" data-i18n="dashStreak">Day Streak</div></div>
+          </div>
+          <div class="stat-change up">↑ <span data-i18n="dashStreakUp">Keep it up!</span></div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-value" id="dashAvg">8.4</div>
+          <div class="stat-label" data-i18n="dashAvg">Grade Average</div>
+          <div class="stat-change up">↑ +0.3 <span data-i18n="dashThisMonth">this month</span></div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-value" id="dashTasks">5</div>
+          <div class="stat-label" data-i18n="dashTasks">Tasks Today</div>
+          <div class="stat-change down"><span data-i18n="dashDeadlines">2 deadlines this week</span></div>
+        </div>
+      </div>
+
+      <div class="dashboard-grid">
+        <!-- Today's Schedule -->
+        <div class="card" style="grid-column: span 1;">
+          <div class="card-header"><h3 class="card-title" data-i18n="dashSchedule">Today's Schedule</h3><span class="badge badge-info" data-i18n="dashToday">Today</span></div>
+          <div class="schedule-list" id="dashSchedule"></div>
+        </div>
+
+        <!-- Upcoming Deadlines -->
+        <div class="card">
+          <div class="card-header"><h3 class="card-title" data-i18n="dashDeadlinesTitle">Upcoming Deadlines</h3><button class="btn btn-sm btn-secondary" onclick="navigateTo('planner')" data-i18n="dashViewAll">View All</button></div>
+          <div id="dashDeadlines"></div>
+        </div>
+
+        <!-- Weekly Progress Chart -->
+        <div class="card">
+          <div class="card-header"><h3 class="card-title" data-i18n="dashProgress">Weekly Progress</h3></div>
+          <div class="chart-container" id="weeklyChart" role="img" aria-label="Weekly study progress chart"></div>
+        </div>
+
+        <!-- AI Suggests -->
+        <div class="card ai-suggest-card">
+          <div class="card-header"><h3 class="card-title">🤖 <span data-i18n="dashAISuggests">AI Suggests Today</span></h3></div>
+          <div class="ai-suggestion">
+            <p class="ai-suggestion-text" id="aiSuggestion" data-i18n="dashAISuggestion">You have a Physics test in 3 days. I recommend reviewing Chapters 5-7 on Mechanics. Start with a 25-min focus session today!</p>
+          </div>
+          <button class="btn btn-outline btn-sm mt-2" onclick="openChat()" data-i18n="dashChatBtn">Chat with AI</button>
+        </div>
+
+        <!-- Homework -->
+        <div class="card">
+          <div class="card-header"><h3 class="card-title" data-i18n="dashHomework">Homework Due</h3></div>
+          <div id="dashHomework"></div>
+        </div>
+
+        <!-- Grade Summary -->
+        <div class="card">
+          <div class="card-header"><h3 class="card-title" data-i18n="dashGradeSummary">Grade Summary</h3><button class="btn btn-sm btn-secondary" onclick="navigateTo('grades')" data-i18n="dashDetails">Details</button></div>
+          <div id="dashGradeSummary"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== ACCOUNTS VIEW ===== -->
+  <div class="view" id="view-accounts">
+    <div class="view-container">
+      <h2 class="mb-2" data-i18n="accTitle">Connected Accounts</h2>
+      <p style="color:var(--text-secondary);margin-bottom:8px;" data-i18n="accSub">Link your school and education platforms to sync your data automatically.</p>
+      <p style="color:var(--accent-warning);font-size:var(--font-size-xs);margin-bottom:24px;" data-i18n="accDemo">⚠️ This is a demo. Real integrations will use official APIs and OAuth. Never enter your real school password here.</p>
+      <div class="connectors-grid" id="connectorsGrid"></div>
+    </div>
+  </div>
+
+  <!-- ===== PLANNER VIEW ===== -->
+  <div class="view" id="view-planner">
+    <div class="view-container">
+      <div class="planner-header">
+        <h2 data-i18n="plannerTitle">Planner</h2>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <div class="planner-nav">
+            <button class="btn btn-sm btn-secondary" onclick="plannerPrev()">←</button>
+            <span class="planner-week" id="plannerWeek">Nov 10 - Nov 16</span>
+            <button class="btn btn-sm btn-secondary" onclick="plannerNext()">→</button>
+          </div>
+          <button class="btn btn-sm btn-primary" onclick="autoPlanWeek()" data-i18n="plannerAuto">⚡ Auto-plan My Week</button>
+        </div>
+      </div>
+      <div class="week-grid" id="weekGrid"></div>
+      <div class="mt-4">
+        <h3 class="mb-2" data-i18n="plannerAddTask">Add Task</h3>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;">
+          <input class="form-input" id="newTaskInput" placeholder="Task name..." style="flex:1;min-width:200px;">
+          <select class="form-select" id="newTaskSubject" style="width:auto;min-width:140px;">
+            <option>Math</option><option>Physics</option><option>Georgian</option><option>English</option><option>Biology</option><option>History</option>
+          </select>
+          <select class="form-select" id="newTaskPriority" style="width:auto;">
+            <option value="high" data-i18n="priorityHigh">High</option>
+            <option value="medium" data-i18n="priorityMed">Medium</option>
+            <option value="low" data-i18n="priorityLow">Low</option>
+          </select>
+          <button class="btn btn-primary btn-sm" onclick="addTask()" data-i18n="plannerAdd">Add</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== GRADES VIEW ===== -->
+  <div class="view" id="view-grades">
+    <div class="view-container">
+      <h2 class="mb-2" data-i18n="gradesTitle">Grades & Progress</h2>
+      <p style="color:var(--text-secondary);margin-bottom:24px;" data-i18n="gradesSub">Track your performance across subjects and set improvement goals.</p>
+      <div class="grades-grid" id="gradesGrid"></div>
+      <div class="card mt-4">
+        <div class="card-header"><h3 class="card-title" data-i18n="gradesWeak">Weak Topics to Focus On</h3></div>
+        <div id="weakTopics"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== LIBRARY VIEW ===== -->
+  <div class="view" id="view-library">
+    <div class="view-container">
+      <h2 class="mb-2" data-i18n="libTitle">Digital Library</h2>
+      <p style="color:var(--text-secondary);margin-bottom:24px;" data-i18n="libSub">Your textbooks, notes, and study materials in one place.</p>
+      <div style="display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;">
+        <button class="btn btn-sm btn-outline" onclick="showToast('Upload feature: In a real app, you could upload PDFs here.','info')" data-i18n="libUpload">📤 Upload Notes</button>
+      </div>
+      <h3 class="mb-2" data-i18n="libTextbooks">Textbooks</h3>
+      <div class="library-shelf mb-4" id="libraryShelf"></div>
+      <h3 class="mb-2" data-i18n="libMyNotes">My Notes</h3>
+      <div class="library-shelf" id="notesShelf"></div>
+    </div>
+  </div>
+
+  <!-- ===== PRACTICE VIEW ===== -->
+  <div class="view" id="view-practice">
+    <div class="view-container">
+      <h2 class="mb-2" data-i18n="practiceTitle">Practice & Flashcards</h2>
+      <p style="color:var(--text-secondary);margin-bottom:24px;" data-i18n="practiceSub">Test your knowledge with AI-generated quizzes and spaced-repetition flashcards.</p>
+
+      <div style="display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="startQuiz()" data-i18n="practiceQuiz">📝 Start Quiz</button>
+        <button class="btn btn-secondary" onclick="showFlashcards()" data-i18n="practiceFlash">🗂️ Flashcards</button>
+        <select class="form-select" id="quizSubject" style="width:auto;min-width:140px;">
+          <option>Math</option><option>Physics</option><option>Biology</option><option>Georgian</option><option>English</option>
+        </select>
+      </div>
+
+      <div id="quizArea" class="hidden">
+        <div class="quiz-container">
+          <div id="quizProgress" style="margin-bottom:12px;font-size:var(--font-size-sm);color:var(--text-secondary);"></div>
+          <div class="progress-bar mb-4"><div class="progress-fill" id="quizProgressBar" style="width:0%"></div></div>
+          <div class="quiz-question" id="quizQuestion"></div>
+          <div class="quiz-options" id="quizOptions"></div>
+          <div class="quiz-feedback hidden" id="quizFeedback"></div>
+          <button class="btn btn-primary mt-4 hidden" id="quizNextBtn" onclick="nextQuizQuestion()" data-i18n="practiceNext">Next Question →</button>
+        </div>
+      </div>
+
+      <div id="quizResults" class="hidden" style="text-align:center;max-width:400px;margin:0 auto;">
+        <h3 data-i18n="practiceResults">Quiz Results</h3>
+        <div id="quizScoreDisplay" style="font-size:var(--font-size-4xl);font-weight:800;margin:16px 0;"></div>
+        <p id="quizScoreMsg" style="color:var(--text-secondary);"></p>
+        <button class="btn btn-primary mt-4" onclick="startQuiz()" data-i18n="practiceRetry">Try Again</button>
+      </div>
+
+      <div id="flashcardArea" class="hidden">
+        <div class="flashcard-container">
+          <div class="flashcard" id="flashcard" onclick="flipFlashcard()" role="button" aria-label="Click to flip card" tabindex="0">
+            <div class="flashcard-face flashcard-front" id="fcFront"></div>
+            <div class="flashcard-face flashcard-back" id="fcBack"></div>
+          </div>
+          <div class="flashcard-nav">
+            <button class="btn btn-secondary" onclick="prevFlashcard()">← <span data-i18n="practicePrev">Prev</span></button>
+            <button class="btn btn-outline" onclick="rateFlashcard('hard')" data-i18n="practiceHard">😓 Hard</button>
+            <button class="btn btn-outline" onclick="rateFlashcard('ok')" data-i18n="practiceOk">👍 OK</button>
+            <button class="btn btn-outline" onclick="rateFlashcard('easy')" data-i18n="practiceEasy">😊 Easy</button>
+            <button class="btn btn-secondary" onclick="nextFlashcard()"><span data-i18n="practiceNextCard">Next</span> →</button>
+          </div>
+          <p style="text-align:center;margin-top:12px;font-size:var(--font-size-xs);color:var(--text-tertiary);" id="fcCounter"></p>
+        </div>
+      </div>
+
+      <div class="card mt-4">
+        <div class="card-header"><h3 class="card-title" data-i18n="practiceHistory">Score History</h3></div>
+        <div id="scoreHistory"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOCUS VIEW ===== -->
+  <div class="view" id="view-focus">
+    <div class="view-container">
+      <h2 class="text-center mb-4" data-i18n="focusTitle">Focus Tools</h2>
+      <div class="pomodoro-container">
+        <div style="display:flex;justify-content:center;gap:8px;margin-bottom:16px;">
+          <button class="btn btn-sm btn-outline podo-mode active" data-minutes="25" onclick="setPomoMode(this,25)" data-i18n="focusWork">Work (25m)</button>
+          <button class="btn btn-sm btn-secondary podo-mode" data-minutes="5" onclick="setPomoMode(this,5)" data-i18n="focusShort">Short Break (5m)</button>
+          <button class="btn btn-sm btn-secondary podo-mode" data-minutes="15" onclick="setPomoMode(this,15)" data-i18n="focusLong">Long Break (15m)</button>
+        </div>
+        <div class="pomodoro-timer">
+          <div class="pomodoro-ring">
+            <svg viewBox="0 0 258 258"><circle class="ring-bg" cx="129" cy="129" r="124"/><circle class="ring-progress" id="pomoRing" cx="129" cy="129" r="124" stroke-dasharray="779.2" stroke-dashoffset="0"/></svg>
+          </div>
+          <div class="pomodoro-time" id="pomoTime">25:00</div>
+          <div class="pomodoro-label" id="pomoLabel" data-i18n="focusReady">Ready to focus</div>
+        </div>
+        <div class="pomodoro-controls">
+          <button class="btn btn-primary" id="pomoStartBtn" onclick="togglePomodoro()" data-i18n="focusStart">▶ Start</button>
+          <button class="btn btn-secondary" onclick="resetPomodoro()" data-i18n="focusReset">↺ Reset</button>
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:40px;">
+        <h3 class="mb-2" data-i18n="focusStreaks">Study Streaks & Badges</h3>
+        <div class="streak-badges" id="streakBadges"></div>
+      </div>
+
+      <div class="card mt-4" style="max-width:500px;margin-left:auto;margin-right:auto;">
+        <div class="card-header"><h3 class="card-title" data-i18n="focusTracker">Study Time Tracker</h3></div>
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <div><span style="font-size:var(--font-size-2xl);font-weight:800;" id="todayStudyTime">1h 45m</span><br><span style="font-size:var(--font-size-sm);color:var(--text-secondary);" data-i18n="focusToday">Today</span></div>
+          <div><span style="font-size:var(--font-size-2xl);font-weight:800;" id="weekStudyTime">12h 30m</span><br><span style="font-size:var(--font-size-sm);color:var(--text-secondary);" data-i18n="focusWeek">This Week</span></div>
+        </div>
+        <div class="progress-bar mt-4"><div class="progress-fill" style="width:65%;" id="studyGoalBar"></div></div>
+        <p style="font-size:var(--font-size-xs);color:var(--text-secondary);margin-top:6px;" data-i18n="focusGoal">Daily goal: 2h 30m</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== SETTINGS VIEW ===== -->
+  <div class="view" id="view-settings">
+    <div class="view-container" style="max-width:700px;">
+      <h2 class="mb-4" data-i18n="settingsTitle">Settings & Privacy</h2>
+
+      <div class="settings-section">
+        <h3 class="settings-title" data-i18n="settingsProfile">Profile</h3>
+        <div class="form-group"><label class="form-label" data-i18n="settingsName">Name</label><input class="form-input" id="settingsName" value="Nino Beridze"></div>
+        <div class="form-group"><label class="form-label" data-i18n="settingsEmail">Email</label><input class="form-input" id="settingsEmail" value="nino@example.com"></div>
+        <div class="form-group"><label class="form-label" data-i18n="settingsLang">Language</label>
+          <select class="form-select" id="settingsLang" onchange="setLanguage(this.value)"><option value="en">English</option><option value="ka">ქართული</option></select>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h3 class="settings-title" data-i18n="settingsNotif">Notifications</h3>
+        <div class="settings-row"><div><div class="settings-row-label" data-i18n="settingsDeadlineRem">Deadline Reminders</div></div><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+        <div class="settings-row"><div><div class="settings-row-label" data-i18n="settingsGradeUpd">Grade Updates</div></div><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+        <div class="settings-row"><div><div class="settings-row-label" data-i18n="settingsStreak">Streak Reminders</div></div><label class="toggle"><input type="checkbox" checked><span class="toggle-slider"></span></label></div>
+      </div>
+
+      <div class="settings-section">
+        <h3 class="settings-title" data-i18n="settingsParental">Parental Controls</h3>
+        <div class="settings-row"><div><div class="settings-row-label" data-i18n="settingsVisibility">Parent/Guardian Visibility</div><div class="settings-row-desc" data-i18n="settingsVisibilityDesc">Allow parents to see your grades and progress</div></div><label class="toggle"><input type="checkbox" id="parentalToggle"><span class="toggle-slider"></span></label></div>
+      </div>
+
+      <div class="settings-section">
+        <h3 class="settings-title" data-i18n="settingsAccessibility">Accessibility</h3>
+        <div class="settings-row"><div><div class="settings-row-label" data-i18n="settingsDyslexic">Dyslexia-Friendly Font</div></div><label class="toggle"><input type="checkbox" id="dyslexicToggle" onchange="toggleDyslexic()"><span class="toggle-slider"></span></label></div>
+        <div class="settings-row"><div><div class="settings-row-label" data-i18n="settingsHighContrast">High Contrast</div></div><label class="toggle"><input type="checkbox" id="highContrastToggle" onchange="toggleHighContrast()"><span class="toggle-slider"></span></label></div>
+        <div class="settings-row"><div><div class="settings-row-label" data-i18n="settingsReducedMotion">Reduced Motion</div></div><label class="toggle"><input type="checkbox" id="reducedMotionToggle" onchange="toggleReducedMotion()"><span class="toggle-slider"></span></label></div>
+      </div>
+
+      <div class="settings-section">
+        <h3 class="settings-title" data-i18n="settingsData">Your Data</h3>
+        <p style="font-size:var(--font-size-sm);color:var(--text-secondary);margin-bottom:16px;" data-i18n="settingsDataDesc">We believe in your right to control your data. Export everything or delete your account anytime.</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;">
+          <button class="btn btn-secondary" onclick="exportData()" data-i18n="settingsExport">📥 Export My Data</button>
+          <button class="btn btn-danger" onclick="deleteData()" data-i18n="settingsDelete">🗑️ Delete My Data</button>
+        </div>
+      </div>
+
+      <div class="settings-section">
+        <h3 class="settings-title" data-i18n="settingsPrivacyTitle">Privacy — Plain Language</h3>
+        <div class="card" style="background:var(--bg-secondary);">
+          <p style="font-size:var(--font-size-sm);line-height:1.8;" data-i18n="settingsPrivacyText">🔒 We never store your school passwords. Connections to school platforms use official, secure OAuth — the same way you log in with Google. Your data is encrypted. We don't sell your information to anyone. If you're under 18, your parents can only see what you allow them to see. You can export all your data or delete your account at any time. That's our promise.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- ===== BOTTOM NAV (Mobile) ===== -->
+<nav class="bottom-nav" id="bottomNav" role="navigation" aria-label="Mobile navigation">
+  <button class="bottom-nav-item active" data-view="dashboard" onclick="navigateTo('dashboard')" aria-label="Dashboard">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+    <span data-i18n="navDashboard">Dashboard</span>
+  </button>
+  <button class="bottom-nav-item" data-view="planner" onclick="navigateTo('planner')" aria-label="Planner">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+    <span data-i18n="navPlanner">Planner</span>
+  </button>
+  <button class="bottom-nav-item" data-view="grades" onclick="navigateTo('grades')" aria-label="Grades">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+    <span data-i18n="navGrades">Grades</span>
+  </button>
+  <button class="bottom-nav-item" data-view="practice" onclick="navigateTo('practice')" aria-label="Practice">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+    <span data-i18n="navPractice">Practice</span>
+  </button>
+  <button class="bottom-nav-item" data-view="settings" onclick="navigateTo('settings')" aria-label="Settings">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    <span data-i18n="navSettings">Settings</span>
+  </button>
+</nav>
+
+<!-- ===== FLOATING CHAT BUTTON ===== -->
+<button class="chat-floating-btn" id="chatFloatBtn" onclick="openChat()" aria-label="Open AI Study Assistant" style="display:none;">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+</button>
+
+<!-- ===== CHAT OVERLAY ===== -->
+<div class="chat-overlay" id="chatOverlay" role="dialog" aria-label="AI Study Assistant" aria-modal="true">
+  <div class="chat-panel">
+    <div class="chat-header">
+      <div class="chat-header-title">
+        <div class="chat-avatar">🤖</div>
+        <div><div style="font-weight:700;" data-i18n="chatTitle">AI Study Assistant</div><div style="font-size:var(--font-size-xs);color:var(--text-secondary);" data-i18n="chatSub">Always here to help you learn</div></div>
+      </div>
+      <button class="btn-icon" onclick="closeChat()" aria-label="Close chat">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="chat-mode-tabs" role="tablist">
+      <button class="chat-mode-tab active" onclick="setChatMode(this,'general')" data-i18n="chatModeGeneral">General</button>
+      <button class="chat-mode-tab" onclick="setChatMode(this,'explain')" data-i18n="chatModeExplain">Explain</button>
+      <button class="chat-mode-tab" onclick="setChatMode(this,'homework')" data-i18n="chatModeHomework">Homework Help</button>
+      <button class="chat-mode-tab" onclick="setChatMode(this,'quiz')" data-i18n="chatModeQuiz">Quiz Me</button>
+      <button class="chat-mode-tab" onclick="setChatMode(this,'flashcards')" data-i18n="chatModeFlashcards">Flashcards</button>
+      <button class="chat-mode-tab" onclick="setChatMode(this,'plan')" data-i18n="chatModePlan">Plan Week</button>
+      <button class="chat-mode-tab" onclick="setChatMode(this,'exam')" data-i18n="chatModeExam">Exam Prep</button>
+    </div>
+    <div class="chat-messages" id="chatMessages" aria-live="polite"></div>
+    <div class="chat-suggestions" id="chatSuggestions"></div>
+    <div class="chat-input-area">
+      <div class="chat-input-wrapper">
+        <textarea class="chat-input" id="chatInput" rows="1" placeholder="Ask me anything about your studies..." data-i18n-placeholder="chatPlaceholder" aria-label="Chat message input" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}"></textarea>
+      </div>
+      <button class="chat-send-btn" onclick="sendChat()" aria-label="Send message">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 2L11 13"/><path d="M22 2l-7 20-4-9-9-4 20-7z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== NOTIFICATION PANEL ===== -->
+<aside class="notif-panel" id="notifPanel" aria-label="Notifications">
+  <div class="notif-panel-header">
+    <h3 style="font-weight:700;" data-i18n="notifTitle">Notifications</h3>
+    <button class="btn btn-sm btn-secondary" onclick="clearNotifications()" data-i18n="notifClear">Clear All</button>
+  </div>
+  <div id="notifList"></div>
+</aside>
+
+<!-- ===== SEARCH OVERLAY ===== -->
+<div class="search-overlay" id="searchOverlay" role="dialog" aria-label="Search">
+  <div class="search-panel">
+    <div class="search-input-wrapper">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input class="search-input" id="searchInput" type="text" placeholder="Search tasks, notes, textbooks..." data-i18n-placeholder="searchPlaceholder" oninput="doSearch(this.value)" aria-label="Search">
+      <button class="btn-icon" onclick="closeSearch()" aria-label="Close search"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="search-results" id="searchResults"></div>
+  </div>
+</div>
+
+<!-- ===== ACCESSIBILITY PANEL ===== -->
+<aside class="a11y-panel" id="a11yPanel" aria-label="Accessibility settings">
+  <h3 style="font-weight:700;margin-bottom:20px;" data-i18n="a11yTitle">Accessibility</h3>
+  <div class="a11y-option">
+    <div class="a11y-option-label" data-i18n="a11yTextSize">Text Size</div>
+    <div class="a11y-option-buttons" id="textSizeBtns">
+      <button class="a11y-opt-btn" onclick="setTextSize('small')">A-</button>
+      <button class="a11y-opt-btn active" onclick="setTextSize('medium')">A</button>
+      <button class="a11y-opt-btn" onclick="setTextSize('large')">A+</button>
+      <button class="a11y-opt-btn" onclick="setTextSize('extra-large')">A++</button>
+    </div>
+  </div>
+  <div class="a11y-option">
+    <div class="a11y-option-label" data-i18n="a11yLineSpacing">Line Spacing</div>
+    <div class="a11y-option-buttons" id="lineSpacingBtns">
+      <button class="a11y-opt-btn" onclick="setLineSpacing('1.4')">Normal</button>
+      <button class="a11y-opt-btn active" onclick="setLineSpacing('1.6')">Relaxed</button>
+      <button class="a11y-opt-btn" onclick="setLineSpacing('2.0')">Wide</button>
+    </div>
+  </div>
+  <div class="a11y-option">
+    <div class="a11y-option-label"><label class="toggle"><input type="checkbox" id="a11yDyslexic" onchange="toggleDyslexic()"><span class="toggle-slider"></span></label> <span data-i18n="a11yDyslexic" style="margin-left:12px;">Dyslexia-Friendly Font</span></div>
+  </div>
+  <div class="a11y-option">
+    <div class="a11y-option-label"><label class="toggle"><input type="checkbox" id="a11yHighContrast" onchange="toggleHighContrast()"><span class="toggle-slider"></span></label> <span data-i18n="a11yHighContrast" style="margin-left:12px;">High Contrast</span></div>
+  </div>
+  <div class="a11y-option">
+    <div class="a11y-option-label"><label class="toggle"><input type="checkbox" id="a11yReducedMotion" onchange="toggleReducedMotion()"><span class="toggle-slider"></span></label> <span data-i18n="a11yReducedMotion" style="margin-left:12px;">Reduced Motion</span></div>
+  </div>
+</aside>
+
+<!-- ===== MODAL ===== -->
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <h3 class="modal-title" id="modalTitle">Modal</h3>
+      <button class="btn-icon" onclick="closeModal()" aria-label="Close modal"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+    <div class="modal-footer" id="modalFooter"></div>
+  </div>
+</div>
+
+<!-- ===== PRODUCT TOUR ===== -->
+<div class="tour-overlay" id="tourOverlay">
+  <div class="tour-tooltip" id="tourTooltip">
+    <div class="tour-step-count" id="tourStepCount"></div>
+    <div class="tour-title" id="tourTitle"></div>
+    <div class="tour-desc" id="tourDesc"></div>
+    <div class="tour-actions">
+      <button class="btn btn-sm btn-secondary" onclick="endTour()" data-i18n="tourSkip">Skip</button>
+      <button class="btn btn-sm btn-primary" id="tourNextBtn" onclick="nextTourStep()" data-i18n="tourNext">Next</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== TOAST CONTAINER ===== -->
+<div class="toast-container" id="toastContainer" aria-live="polite" aria-atomic="true"></div>
+
+
+<script>
+/* ============================================================
+   =================== CONFIG & CONSTANTS ======================
+   ============================================================ */
+const APP_NAME = 'StudyHub';
+const LS_KEYS = { state: 'studyhub_state', theme: 'studyhub_theme', lang: 'studyhub_lang', a11y: 'studyhub_a11y', tourDone: 'studyhub_tour_done' };
+
+/* ============================================================
+   ======================== i18n ===============================
+   ============================================================ */
+const i18n = {
+  en: {
+    skipToContent: "Skip to content",
+    navMain: "Main", navDashboard: "Dashboard", navPlanner: "Planner", navGrades: "Grades", navLibrary: "Library",
+    navTools: "Tools", navPractice: "Practice", navFocus: "Focus", navAccounts: "Accounts", navOther: "Other", navSettings: "Settings",
+    xpLevel: "Level 5 — Scholar",
+    heroBadge: "🎓 Built for Students in Georgia & Worldwide",
+    heroTitle1: "Your Smart Study", heroTitle2: "Companion",
+    heroSubtitle: "Connect your school accounts, track grades, plan your week, and get AI-powered study help — all in one place.",
+    heroCta: "Get Started — It's Free", heroCta2: "Sign In",
+    featuresTitle: "Everything You Need to Succeed", featuresSubtitle: "From daily schedules to exam prep, StudyHub has you covered.",
+    feat1Title: "Grades & Progress", feat1Desc: "Track your grades across all subjects, spot trends, and set improvement goals.",
+    feat2Title: "Smart Planner", feat2Desc: "Auto-plan your week based on deadlines, exams, and weak subjects.",
+    feat3Title: "AI Study Assistant", feat3Desc: "Get explanations, homework hints, flashcards, and quiz practice with AI.",
+    feat4Title: "Digital Library", feat4Desc: "Access textbooks, upload notes, highlight, and organize your study materials.",
+    feat5Title: "Focus Tools", feat5Desc: "Pomodoro timer, study streaks, and ambient focus mode to stay productive.",
+    feat6Title: "Connected Accounts", feat6Desc: "Link your school platforms and see everything synced in one dashboard.",
+    geoTitle: "Works in Georgia and Worldwide", geoSubtitle: "Built with Georgian students in mind, expanding to schools around the globe.",
+    geoGeorgia: "Georgia", geoMore: "More coming...",
+    faqTitle: "Frequently Asked Questions",
+    faq1Q: "Is StudyHub free?", faq1A: "Yes! StudyHub is completely free for students. We offer premium features for power users, but the core experience is always free.",
+    faq2Q: "Is my data safe?", faq2A: "Absolutely. We never store your school passwords. Connections use official OAuth. Your data is encrypted and you can export or delete it anytime.",
+    faq3Q: "Does it work with Georgian schools?", faq3A: "Yes! We support Georgian e-school platforms, digital textbook systems, and are expanding to more integrations. Available in both Georgian and English.",
+    faq4Q: "Can parents see my data?", faq4A: "You control what parents or guardians can see. There's a visibility toggle in settings, and we explain everything in plain language for minors.",
+    privacyTitle: "Privacy & Safety First",
+    privacyDesc: "We know many of our users are minors. That's why we never store school passwords, use encrypted connections, let you export or delete your data anytime, and explain everything in plain language. Your learning, your privacy.",
+    privacyCta: "Start Studying Smarter",
+    footerMade: "Made with ❤️ for students everywhere.",
+    authTitle: "Welcome to StudyHub", authLogin: "Log In", authSignup: "Sign Up",
+    authEmail: "Email", authPassword: "Password", authName: "Full Name", authRole: "I am a...",
+    authRoleSchool: "School Student", authRoleUni: "University Student",
+    authLoginBtn: "Log In", authSignupBtn: "Create Account",
+    authDemo: "This is a demo — no real account needed. Just click Log In or Sign Up to explore!",
+    onb1Title: "Where are you from?", onb1Sub: "Select your country so we can customize your experience.",
+    onb2Title: "What's your level?", onb2Sub: "Tell us your school level and grade.",
+    onbLevel: "School Level", onbPrimary: "Primary (1-6)", onbMiddle: "Middle School (7-9)", onbHigh: "High School (10-12)", onbUni: "University",
+    onbGrade: "Grade / Year",
+    onb3Title: "Your Subjects", onb3Sub: "Pick the subjects you study.",
+    onb4Title: "Study Goals", onb4Sub: "What do you want to achieve?",
+    onbBack: "Back", onbNext: "Next", onbFinish: "Go to Dashboard →",
+    dashWelcome: "Good morning, Nino! 👋",
+    dashSub: "Here's what's happening with your studies today.",
+    dashStreak: "Day Streak", dashStreakUp: "Keep it up!", dashAvg: "Grade Average", dashThisMonth: "this month",
+    dashTasks: "Tasks Today", dashDeadlines: "2 deadlines this week",
+    dashSchedule: "Today's Schedule", dashToday: "Today",
+    dashDeadlinesTitle: "Upcoming Deadlines", dashViewAll: "View All",
+    dashProgress: "Weekly Progress",
+    dashAISuggests: "AI Suggests Today",
+    dashAISuggestion: "You have a Physics test in 3 days. I recommend reviewing Chapters 5-7 on Mechanics. Start with a 25-min focus session today!",
+    dashChatBtn: "Chat with AI",
+    dashHomework: "Homework Due", dashGradeSummary: "Grade Summary", dashDetails: "Details",
+    accTitle: "Connected Accounts", accSub: "Link your school and education platforms to sync your data automatically.",
+    accDemo: "⚠️ This is a demo. Real integrations will use official APIs and OAuth. Never enter your real school password here.",
+    plannerTitle: "Planner", plannerAuto: "⚡ Auto-plan My Week", plannerAddTask: "Add Task", plannerAdd: "Add",
+    priorityHigh: "High", priorityMed: "Medium", priorityLow: "Low",
+    gradesTitle: "Grades & Progress", gradesSub: "Track your performance across subjects and set improvement goals.",
+    gradesWeak: "Weak Topics to Focus On",
+    libTitle: "Digital Library", libSub: "Your textbooks, notes, and study materials in one place.",
+    libUpload: "📤 Upload Notes", libTextbooks: "Textbooks", libMyNotes: "My Notes",
+    practiceTitle: "Practice & Flashcards", practiceSub: "Test your knowledge with AI-generated quizzes and spaced-repetition flashcards.",
+    practiceQuiz: "📝 Start Quiz", practiceFlash: "🗂️ Flashcards",
+    practiceNext: "Next Question →", practiceResults: "Quiz Results", practiceRetry: "Try Again",
+    practicePrev: "Prev", practiceHard: "😓 Hard", practiceOk: "👍 OK", practiceEasy: "😊 Easy", practiceNextCard: "Next",
+    practiceHistory: "Score History",
+    focusTitle: "Focus Tools", focusWork: "Work (25m)", focusShort: "Short Break (5m)", focusLong: "Long Break (15m)",
+    focusReady: "Ready to focus", focusStart: "▶ Start", focusPause: "⏸ Pause", focusReset: "↺ Reset",
+    focusStreaks: "Study Streaks & Badges", focusTracker: "Study Time Tracker",
+    focusToday: "Today", focusWeek: "This Week", focusGoal: "Daily goal: 2h 30m",
+    settingsTitle: "Settings & Privacy", settingsProfile: "Profile",
+    settingsName: "Name", settingsEmail: "Email", settingsLang: "Language",
+    settingsNotif: "Notifications", settingsDeadlineRem: "Deadline Reminders", settingsGradeUpd: "Grade Updates", settingsStreak: "Streak Reminders",
+    settingsParental: "Parental Controls", settingsVisibility: "Parent/Guardian Visibility", settingsVisibilityDesc: "Allow parents to see your grades and progress",
+    settingsAccessibility: "Accessibility", settingsDyslexic: "Dyslexia-Friendly Font", settingsHighContrast: "High Contrast", settingsReducedMotion: "Reduced Motion",
+    settingsData: "Your Data", settingsDataDesc: "We believe in your right to control your data. Export everything or delete your account anytime.",
+    settingsExport: "📥 Export My Data", settingsDelete: "🗑️ Delete My Data",
+    settingsPrivacyTitle: "Privacy — Plain Language",
+    settingsPrivacyText: "🔒 We never store your school passwords. Connections to school platforms use official, secure OAuth — the same way you log in with Google. Your data is encrypted. We don't sell your information to anyone. If you're under 18, your parents can only see what you allow them to see. You can export all your data or delete your account at any time. That's our promise.",
+    chatTitle: "AI Study Assistant", chatSub: "Always here to help you learn",
+    chatModeGeneral: "General", chatModeExplain: "Explain", chatModeHomework: "Homework Help",
+    chatModeQuiz: "Quiz Me", chatModeFlashcards: "Flashcards", chatModePlan: "Plan Week", chatModeExam: "Exam Prep",
+    chatPlaceholder: "Ask me anything about your studies...",
+    notifTitle: "Notifications", notifClear: "Clear All",
+    searchPlaceholder: "Search tasks, notes, textbooks...",
+    a11yTitle: "Accessibility", a11yTextSize: "Text Size", a11yLineSpacing: "Line Spacing",
+    a11yDyslexic: "Dyslexia-Friendly Font", a11yHighContrast: "High Contrast", a11yReducedMotion: "Reduced Motion",
+    tourSkip: "Skip", tourNext: "Next", tourDone: "Done",
+    mon: "Mon", tue: "Tue", wed: "Wed", thu: "Thu", fri: "Fri", sat: "Sat", sun: "Sun",
+    // Days for schedule
+    math: "Math", physics: "Physics", georgian: "Georgian Language", english: "English", biology: "Biology",
+    history: "History", chemistry: "Chemistry", geography: "Geography", literature: "Literature", cs: "Computer Science",
+  },
+  ka: {
+    skipToContent: "კონტენტზე გადასვლა",
+    navMain: "მთავარი", navDashboard: "მთავარი პანელი", navPlanner: "გეგმა", navGrades: "ნიშნები", navLibrary: "ბიბლიოთეკა",
+    navTools: "ხელსაწყოები", navPractice: "ვარჯიში", navFocus: "ფოკუსი", navAccounts: "ანგარიშები", navOther: "სხვა", navSettings: "პარამეტრები",
+    xpLevel: "დონე 5 — მეცნიერი",
+    heroBadge: "🎓 შექმნილია საქართველოსა და მსოფლიოს მოსწავლეებისთვის",
+    heroTitle1: "შენი ჭკვიანი", heroTitle2: "სასწავლო თანამგზავრი",
+    heroSubtitle: "დააკავშირე სკოლის ანგარიშები, თვალყური ადევნე ნიშნებს, დაგეგმე კვირა და მიიღე AI-ით მხარდაჭერილი დახმარება — ყველაფერი ერთ ადგილას.",
+    heroCta: "დაიწყე — უფასოა", heroCta2: "შესვლა",
+    featuresTitle: "ყველაფერი რაც გჭირდება წარმატებისთვის", featuresSubtitle: "ყოველდღიური განრიგიდან გამოცდების მომზადებამდე, StudyHub გფარავს.",
+    feat1Title: "ნიშნები და პროგრესი", feat1Desc: "ადევნე თვალყური ნიშნებს ყველა საგანში, იპოვე ტენდენციები და დაისახე გაუმჯობესების მიზნები.",
+    feat2Title: "ჭკვიანი გეგმა", feat2Desc: "ავტომატურად დაგეგმე კვირა ვადებზე, გამოცდებსა და სუსტ საგნებზე დაყრდნობით.",
+    feat3Title: "AI სასწავლო ასისტენტი", feat3Desc: "მიიღე განმარტებები, საშინაო დავალების მინიშნებები, ფლეშბარათები და ქვიზები AI-ით.",
+    feat4Title: "ციფრული ბიბლიოთეკა", feat4Desc: "იქონიე წიგნები, ატვირთე კონსპექტები, გამოყავი და დააორგანიზე სასწავლო მასალები.",
+    feat5Title: "ფოკუსის ხელსაწყოები", feat5Desc: "პომოდორო ტაიმერი, სწავლის სტრიქები და ფოკუსის რეჟიმი პროდუქტიულობისთვის.",
+    feat6Title: "დაკავშირებული ანგარიშები", feat6Desc: "დააკავშირე სკოლის პლატფორმები და ნახე ყველაფერი სინქრონიზებული ერთ პანელზე.",
+    geoTitle: "მუშაობს საქართველოსა და მსოფლიოში", geoSubtitle: "შექმნილია ქართველი მოსწავლეებისთვის, ფართოვდება მსოფლიოს სკოლებში.",
+    geoGeorgia: "საქართველო", geoMore: "მალე...",
+    faqTitle: "ხშირად დასმული კითხვები",
+    faq1Q: "უფასოა StudyHub?", faq1A: "დიახ! StudyHub სრულიად უფასოა მოსწავლეებისთვის. ვთავაზობთ პრემიუმ ფუნქციებს, მაგრამ ძირითადი გამოცდიება ყოველთვის უფასოა.",
+    faq2Q: "უსაფრთხოა ჩემი მონაცემები?", faq2A: "რა თქმა უნდა. ჩვენ არასდროს ვინახავთ სკოლის პაროლებს. კავშირები იყენებს ოფიციალურ OAuth-ს. მონაცემები დაშიფრულია და ნებისმიერ დროს შეგიძლია export ან წაშლა.",
+    faq3Q: "მუშაობს ქართულ სკოლებთან?", faq3A: "დიახ! ჩვენ ვუჭერთ მხარს ქართულ ელექტრონულ სკოლის პლატფორმებს, ციფრულ სახელმძღვანელო სისტემებს და ვფართოვდებით. ხელმისაწვდომია ქართულად და ინგლისურად.",
+    faq4Q: "შეუძლია მშობლებს ჩემი მონაცემების ნახვა?", faq4A: "შენ აკონტროლებ რას ხედავენ მშობლები. პარამეტრებში არის ხილვადობის გადართვა და ყველაფერი მარტივი ენითაა ახსნილი.",
+    privacyTitle: "კონფიდენციალურობა და უსაფრთხოება პირველ რიგში",
+    privacyDesc: "ვიცით რომ ბევრი მომხმარელი არასრულწლოვანია. ამიტომ არასდროს ვინახავთ სკოლის პაროლებს, ვიყენებთ დაშიფრულ კავშირებს, საშუალებას გაძლევთ export ან წაშალოთ მონაცემები ნებისმიერ დროს.",
+    privacyCta: "დაიწყე ჭკვიანური სწავლა",
+    footerMade: "შექმნილია ❤️-ით მოსწავლეებისთვის ყველგან.",
+    authTitle: "მოგესალმება StudyHub", authLogin: "შესვლა", authSignup: "რეგისტრაცია",
+    authEmail: "ელფოსტა", authPassword: "პაროლი", authName: "სრული სახელი", authRole: "მე ვარ...",
+    authRoleSchool: "სკოლის მოსწავლე", authRoleUni: "უნივერსიტეტის სტუდენტი",
+    authLoginBtn: "შესვლა", authSignupBtn: "ანგარიშის შექმნა",
+    authDemo: "ეს დემოა — რეალური ანგარიში არ არის საჭირო. უბრალოდ დააჭირე შესვლას ან რეგისტრაციას!",
+    onb1Title: "საიდან ხარ?", onb1Sub: "აირჩიე ქვეყანა გამოცდილების მორგებისთვის.",
+    onb2Title: "რა დონეზე ხარ?", onb2Sub: "გვითხარი სკოლის დონე და კლასი.",
+    onbLevel: "სკოლის დონე", onbPrimary: "პირველადი (1-6)", onbMiddle: "საშუალო (7-9)", onbHigh: "უმაღლესი (10-12)", onbUni: "უნივერსიტეტი",
+    onbGrade: "კლასი / კურსი",
+    onb3Title: "შენი საგნები", onb3Sub: "აირჩიე საგნები რომლებიც გეწავლება.",
+    onb4Title: "სასწავლო მიზნები", onb4Sub: "რისი მიღწევა გინდა?",
+    onbBack: "უკან", onbNext: "შემდეგი", onbFinish: "პანელზე გადასვლა →",
+    dashWelcome: "დილა მშვიდობის, ნინო! 👋",
+    dashSub: "აი რა ხდება შენს სწავლაში დღეს.",
+    dashStreak: "დღის სტრიქი", dashStreakUp: "გააგრძელე!", dashAvg: "ნიშნების საშუალო", dashThisMonth: "ამ თვეში",
+    dashTasks: "დავალებები დღეს", dashDeadlines: "2 ვადა ამ კვირაში",
+    dashSchedule: "დღევანდელი განრიგი", dashToday: "დღეს",
+    dashDeadlinesTitle: "მომავალი ვადები", dashViewAll: "ყველას ნახვა",
+    dashProgress: "კვირის პროგრესი",
+    dashAISuggests: "AI რეკომენდაცია დღეს",
+    dashAISuggestion: "ფიზიკის გამოცდა 3 დღეში გაქვს. გირჩევ თავიდან განიხილო თავები 5-7 მექანიკაზე. დაიწყე 25-წუთიანი ფოკუს სესიით დღეს!",
+    dashChatBtn: "AI-სთან ჩატი",
+    dashHomework: "საშინაო დავალება", dashGradeSummary: "ნიშნების შეჯამება", dashDetails: "დეტალები",
+    accTitle: "დაკავშირებული ანგარიშები", accSub: "დააკავშირე სკოლის და საგანმანათლებლო პლატფორმები მონაცემების ავტომატური სინქრონიზაციისთვის.",
+    accDemo: "⚠️ ეს დემოა. რეალური ინტეგრაციები ოფიციალურ API-ებს და OAuth-ს გამოიყენებს. არასდროს შეიყვანო რეალური სკოლის პაროლი აქ.",
+    plannerTitle: "გეგმა", plannerAuto: "⚡ კვირის ავტო-დაგეგმვა", plannerAddTask: "დავალების დამატება", plannerAdd: "დამატება",
+    priorityHigh: "მაღალი", priorityMed: "საშუალო", priorityLow: "დაბალი",
+    gradesTitle: "ნიშნები და პროგრესი", gradesSub: "ადევნე თვალყური შესრულებას საგნების მიხედვით და დაისახე გაუმჯობესების მიზნები.",
+    gradesWeak: "სუსტი თემები ფოკუსისთვის",
+    libTitle: "ციფრული ბიბლიოთეკა", libSub: "სახელმძღვანელოები, კონსპექტები და სასწავლო მასალები ერთ ადგილას.",
+    libUpload: "📤 კონსპექტის ატვირთვა", libTextbooks: "სახელმძღვანელოები", libMyNotes: "ჩემი კონსპექტები",
+    practiceTitle: "ვარჯიში და ფლეშბარათები", practiceSub: "შეამოწმე ცოდნა AI-ით შექმნილი ქვიზებით და ინტერვალური ფლეშბარათებით.",
+    practiceQuiz: "📝 ქვიზის დაწყება", practiceFlash: "🗂️ ფლეშბარათები",
+    practiceNext: "შემდეგი კითხვა →", practiceResults: "ქვიზის შედეგები", practiceRetry: "თავიდან",
+    practicePrev: "წინა", practiceHard: "😓 რთული", practiceOk: "👍 კარგი", practiceEasy: "😊 ადვილი", practiceNextCard: "შემდეგი",
+    practiceHistory: "შედეგების ისტორია",
+    focusTitle: "ფოკუსის ხელსაწყოები", focusWork: "მუშაობა (25წთ)", focusShort: "მოკლე შესვენება (5წთ)", focusLong: "გრძელი შესვენება (15წთ)",
+    focusReady: "მზად ხარ ფოკუსისთვის", focusStart: "▶ დაწყება", focusPause: "⏸ პაუზა", focusReset: "↺ თავიდან",
+    focusStreaks: "სწავლის სტრიქები და ბეჯები", focusTracker: "სწავლის დროის ტრეკერი",
+    focusToday: "დღეს", focusWeek: "ამ კვირაში", focusGoal: "დღიური მიზანი: 2სთ 30წთ",
+    settingsTitle: "პარამეტრები და კონფიდენციალურობა", settingsProfile: "პროფილი",
+    settingsName: "სახელი", settingsEmail: "ელფოსტა", settingsLang: "ენა",
+    settingsNotif: "შეტყობინებები", settingsDeadlineRem: "ვადების შეხსენებები", settingsGradeUpd: "ნიშნების განახლებები", settingsStreak: "სტრიქის შეხსენებები",
+    settingsParental: "მშობლის კონტროლი", settingsVisibility: "მშობლის/მეურვის ხილვადობა", settingsVisibilityDesc: "მშობლებს ნიშნების და პროგრესის ნახვის საშუალება",
+    settingsAccessibility: "ხელმისაწვდომობა", settingsDyslexic: "დი슬ექსიისთვის მორგებული ფონტი", settingsHighContrast: "მაღალი კონტრასტი", settingsReducedMotion: "შემცირებული ანიმაცია",
+    settingsData: "შენი მონაცემები", settingsDataDesc: "გვწამს შენი უფლება აკონტროლო მონაცემები. export ყველაფერი ან წაშალე ანგარიში ნებისმიერ დროს.",
+    settingsExport: "📥 მონაცემების ექსპორტი", settingsDelete: "🗑️ მონაცემების წაშლა",
+    settingsPrivacyTitle: "კონფიდენციალურობა — მარტივი ენით",
+    settingsPrivacyText: "🔒 ჩვენ არასდროს ვინახავთ სკოლის პაროლებს. სკოლის პლატფორმებთან კავშირი იყენებს ოფიციალურ, უსაფრთხო OAuth-ს. მონაცემები დაშიფრულია. ინფორმაციას არავის ვყიდით. 18 წელზე ქვემოთ რომ ხარ, მშობლები მხოლოდ იმას ხედავენ რასაც ნებართავ. ნებისმიერ დროს შეგიძლია მონაცემების ექსპორტი ან ანგარიშის წაშლა.",
+    chatTitle: "AI სასწავლო ასისტენტი", chatSub: "ყოველთვის აქ ვარ დასახმარებლად",
+    chatModeGeneral: "ზოგადი", chatModeExplain: "განმარტება", chatModeHomework: "საშინაოს დახმარება",
+    chatModeQuiz: "ქვიზი", chatModeFlashcards: "ფლეშბარათები", chatModePlan: "კვირის გეგმა", chatModeExam: "გამოცდის მომზადება",
+    chatPlaceholder: "მკითხე რამე შენი სწავლის შესახებ...",
+    notifTitle: "შეტყობინებები", notifClear: "ყველას წაშლა",
+    searchPlaceholder: "ძიება დავალებებში, კონსპექტებში, წიგნებში...",
+    a11yTitle: "ხელმისაწვდომობა", a11yTextSize: "ტექსტის ზომა", a11yLineSpacing: "ხაზებს შორის მანძილი",
+    a11yDyslexic: "დი슬ექსიის ფონტი", a11yHighContrast: "მაღალი კონტრასტი", a11yReducedMotion: "შემცირებული ანიმაცია",
+    tourSkip: "გამოტოვება", tourNext: "შემდეგი", tourDone: "მზად",
+    mon: "ორშ", tue: "სამ", wed: "ოთხ", thu: "ხუთ", fri: "პარ", sat: "შაბ", sun: "კვი",
+    math: "მათემატიკა", physics: "ფიზიკა", georgian: "ქართული ენა", english: "ინგლისური", biology: "ბიოლოგია",
+    history: "ისტორია", chemistry: "ქიმია", geography: "გეოგრაფია", literature: "ლიტერატურა", cs: "ინფორმატიკა",
+  }
+};
+
+/* ============================================================
+   ===================== MOCK DATA =============================
+   ============================================================ */
+const COUNTRIES = [
+  { id: 'ge', flag: '🇬🇪', name: { en: 'Georgia', ka: 'საქართველო' }},
+  { id: 'us', flag: '🇺🇸', name: { en: 'United States', ka: 'აშშ' }},
+  { id: 'gb', flag: '🇬🇧', name: { en: 'United Kingdom', ka: 'გაერთიანებული სამეფო' }},
+  { id: 'de', flag: '🇩🇪', name: { en: 'Germany', ka: 'გერმანია' }},
+  { id: 'tr', flag: '🇹🇷', name: { en: 'Turkey', ka: 'თურქეთი' }},
+  { id: 'az', flag: '🇦🇿', name: { en: 'Azerbaijan', ka: 'აზერბაიჯანი' }},
+  { id: 'am', flag: '🇦🇲', name: { en: 'Armenia', ka: 'სომხეთი' }},
+  { id: 'pl', flag: '🇵🇱', name: { en: 'Poland', ka: 'პოლონეთი' }},
+];
+
+const SUBJECTS_LIST = ['Math', 'Physics', 'Georgian', 'English', 'Biology', 'History', 'Chemistry', 'Geography', 'Literature', 'Computer Science'];
+
+const GOALS_LIST = [
+  { en: 'Improve grades', ka: 'ნიშნების გაუმჯობესება' },
+  { en: 'Prepare for exams', ka: 'გამოცდებისთვის მომზადება' },
+  { en: 'Study consistently', ka: 'სისტემატური სწავლა' },
+  { en: 'Learn new subjects', ka: 'ახალი საგნების სწავლა' },
+  { en: 'Better time management', ka: 'დროის უკეთ მართვა' },
+  { en: 'Get into university', ka: 'უნივერსიტეტში ჩაბარება' },
+];
+
+const CONNECTORS = [
+  { id: 'eschool', name: { en: 'Georgian E-School', ka: 'საქართველოს ელ. სკოლა' }, icon: '🏫', color: '#4f46e5', desc: { en: 'Official Georgian public school e-diary', ka: 'ოფიციალური ელექტრონული ჟურნალი' }},
+  { id: 'textbook', name: { en: 'Georgian Digital Textbooks', ka: 'ქართული ციფრული სახელმძღვანელოები' }, icon: '📖', color: '#0d9488', desc: { en: 'National textbook platform', ka: 'ეროვნული სახელმძღვანელო პლატფორმა' }},
+  { id: 'classroom', name: 'Google Classroom', icon: '📗', color: '#16a34a', desc: { en: 'Sync Google Classroom classes and assignments', ka: 'Google Classroom-ის სინქრონიზაცია' }},
+  { id: 'teams', name: 'Microsoft Teams', icon: '📘', color: '#2563eb', desc: { en: 'Connect Teams for Education', ka: 'Teams for Education-ის დაკავშირება' }},
+  { id: 'moodle', name: 'Moodle', icon: '🎓', color: '#f97316', desc: { en: 'Sync Moodle courses and grades', ka: 'Moodle-ის კურსების სინქრონიზაცია' }},
+  { id: 'canvas', name: 'Canvas LMS', icon: '🎨', color: '#e11d48', desc: { en: 'Connect Canvas LMS account', ka: 'Canvas LMS ანგარიშის დაკავშირება' }},
+  { id: 'khan', name: 'Khan Academy', icon: '🧠', color: '#14b8a6', desc: { en: 'Sync Khan Academy progress', ka: 'Khan Academy პროგრესის სინქრონიზაცია' }},
+  { id: 'duolingo', name: 'Duolingo', icon: '🦉', color: '#84cc16', desc: { en: 'Track language learning streaks', ka: 'ენის სწავლის სტრიქები' }},
+  { id: 'manual', name: { en: 'Manual Import', ka: 'ხელით იმპორტი' }, icon: '📁', color: '#6b7280', desc: { en: 'Upload CSV timetable or photo', ka: 'CSV განრიგის ან ფოტოს ატვირთვა' }},
+];
+
+const MOCK_SCHEDULE = [
+  { time: '09:00', subject: 'Math', room: 'Room 204', teacher: 'Ms. Makharadze' },
+  { time: '10:00', subject: 'Georgian', room: 'Room 108', teacher: 'Mr. Gelashvili' },
+  { time: '11:00', subject: 'Physics', room: 'Lab 3', teacher: 'Ms. Tsiklauri' },
+  { time: '12:00', subject: 'English', room: 'Room 301', teacher: 'Mrs. Johnson' },
+  { time: '13:00', subject: 'Biology', room: 'Lab 1', teacher: 'Mr. Kapanadze' },
+];
+
+const MOCK_DEADLINES = [
+  { title: { en: 'Math Homework: Quadratic Equations', ka: 'მათემატიკა: კვადრატული განტოლებები' }, subject: 'Math', date: 'Nov 17', urgency: 'urgent' },
+  { title: { en: 'Physics Lab Report: Mechanics', ka: 'ფიზიკა: ლაბორატორიული - მექანიკა' }, subject: 'Physics', date: 'Nov 18', urgency: 'urgent' },
+  { title: { en: 'English Essay: My Future', ka: 'ინგლისური: ესსე - ჩემი მომავალი' }, subject: 'English', date: 'Nov 20', urgency: 'soon' },
+  { title: { en: 'Biology Presentation: Cells', ka: 'ბიოლოგია: პრეზენტაცია - უჯრედები' }, subject: 'Biology', date: 'Nov 22', urgency: 'normal' },
+];
+
+const MOCK_HOMEWORK = [
+  { title: { en: 'Solve problems 1-15, pg. 87', ka: 'ამოცანები 1-15, გვ. 87' }, subject: 'Math', due: 'Tomorrow' },
+  { title: { en: 'Read Chapter 12, answer questions', ka: 'წაიკითხე თავი 12, უპასუკე კითხვებს' }, subject: 'Georgian', due: 'Wed' },
+  { title: { en: 'Complete lab report template', ka: 'შეავსე ლაბორატორიული შაბლონი' }, subject: 'Physics', due: 'Thu' },
+];
+
+const MOCK_GRADES = [
+  { subject: 'Math', avg: 9.1, trend: 'up', color: '#4f46e5', grades: [8, 9, 10, 9, 9, 10, 9], target: 9.5 },
+  { subject: 'Physics', avg: 8.4, trend: 'up', color: '#0d9488', grades: [7, 8, 8, 9, 8, 9, 9], target: 9.0 },
+  { subject: 'Georgian', avg: 8.8, trend: 'stable', color: '#f59e0b', grades: [9, 8, 9, 9, 8, 9, 9], target: 9.0 },
+  { subject: 'English', avg: 7.9, trend: 'up', color: '#ef4444', grades: [7, 7, 8, 8, 8, 8, 8], target: 8.5 },
+  { subject: 'Biology', avg: 8.6, trend: 'down', color: '#10b981', grades: [9, 9, 8, 8, 8, 9, 8], target: 9.0 },
+  { subject: 'History', avg: 9.2, trend: 'up', color: '#8b5cf6', grades: [9, 9, 10, 9, 9, 10, 9], target: 9.5 },
+];
+
+const MOCK_WEAK_TOPICS = [
+  { en: 'Quadratic Equations (Math)', ka: 'კვადრატული განტოლებები (მათემატიკა)' },
+  { en: 'Newton\'s Laws (Physics)', ka: 'ნიუტონის კანონები (ფიზიკა)' },
+  { en: 'Verb Tenses (English)', ka: 'ზმნის დროები (ინგლისური)' },
+  { en: 'Cell Division (Biology)', ka: 'უჯრედის გაყოფა (ბიოლოგია)' },
+];
+
+const MOCK_BOOKS = [
+  { title: { en: 'Mathematics 10', ka: 'მათემატიკა 10' }, author: { en: 'Kldiashvili', ka: 'კლდიაშვილი' }, color: '#4f46e5' },
+  { title: { en: 'Physics 10', ka: 'ფიზიკა 10' }, author: { en: 'Chogovadze', ka: 'ჭოგოვაძე' }, color: '#0d9488' },
+  { title: { en: 'Georgian Literature', ka: 'ქართული ლიტერატურა' }, author: { en: 'Lominadze', ka: 'ლომინაძე' }, color: '#f59e0b' },
+  { title: { en: 'English Grammar', ka: 'ინგლისური გრამატიკა' }, author: { en: 'Murphy', ka: 'მერფი' }, color: '#ef4444' },
+  { title: { en: 'Biology 10', ka: 'ბიოლოგია 10' }, author: { en: 'Berishvili', ka: 'ბერიშვილი' }, color: '#10b981' },
+  { title: { en: 'World History', ka: 'მსოფლიო ისტორია' }, author: { en: 'Vardosanidze', ka: 'ვარდოსანიძე' }, color: '#8b5cf6' },
+];
+
+const MOCK_NOTES = [
+  { title: { en: 'Physics Formulas', ka: 'ფიზიკის ფორმულები' }, icon: '📝' },
+  { title: { en: 'Math Key Theorems', ka: 'მათემატიკის თეორემები' }, icon: '📐' },
+  { title: { en: 'Biology Notes: Cells', ka: 'ბიოლოგია: უჯრედები' }, icon: '🔬' },
+];
+
+const QUIZ_QUESTIONS = {
+  Math: [
+    { q: 'What is the discriminant of ax² + bx + c = 0?', options: ['b² - 4ac', 'b² + 4ac', '2a - b', '4ac - b²'], correct: 0 },
+    { q: 'What is the derivative of x³?', options: ['3x²', 'x²', '3x', 'x³/3'], correct: 0 },
+    { q: 'What is log₁₀(1000)?', options: ['3', '10', '100', '30'], correct: 0 },
+    { q: 'What is the sum of angles in a triangle?', options: ['180°', '360°', '90°', '270°'], correct: 0 },
+    { q: 'If f(x) = 2x + 3, what is f(5)?', options: ['13', '10', '8', '15'], correct: 0 },
+  ],
+  Physics: [
+    { q: 'What is the SI unit of force?', options: ['Newton', 'Joule', 'Watt', 'Pascal'], correct: 0 },
+    { q: 'What is the speed of light in vacuum?', options: ['3×10⁸ m/s', '3×10⁶ m/s', '3×10¹⁰ m/s', '3×10⁴ m/s'], correct: 0 },
+    { q: "Newton's second law states F = ?", options: ['ma', 'mv', 'mg', '½mv²'], correct: 0 },
+    { q: 'What is the unit of electric current?', options: ['Ampere', 'Volt', 'Ohm', 'Watt'], correct: 0 },
+    { q: 'Energy cannot be created or destroyed is the law of?', options: ['Conservation of energy', 'Entropy', 'Gravity', 'Thermodynamics'], correct: 0 },
+  ],
+  Biology: [
+    { q: 'What is the powerhouse of the cell?', options: ['Mitochondria', 'Nucleus', 'Ribosome', 'Golgi body'], correct: 0 },
+    { q: 'DNA stands for?', options: ['Deoxyribonucleic acid', 'Dinitrogen acid', 'Dynamic nuclear acid', 'Deoxyribose nucleic atom'], correct: 0 },
+    { q: 'Photosynthesis occurs in?', options: ['Chloroplasts', 'Mitochondria', 'Nucleus', 'Cell wall'], correct: 0 },
+    { q: 'How many chromosomes do humans have?', options: ['46', '23', '44', '48'], correct: 0 },
+    { q: 'The process of cell division is called?', options: ['Mitosis', 'Osmosis', 'Synthesis', 'Photosynthesis'], correct: 0 },
+  ],
+  Georgian: [
+    { q: 'ქართული ანბანი რა ასოთი იწყება?', options: ['ან', 'ბან', 'გან', 'დონ'], correct: 0 },
+    { q: 'ვინ არის "ვეფხისტყაოსნის" ავტორი?', options: ['შოთა რუსთაველი', 'ილია ჭავჭავაძე', 'აკაკი წერეთელი', 'ნიკოლოზ ბარათაშვილი'], correct: 0 },
+    { q: 'რამდენი ხმოანია ქართულ ენაში?', options: ['5', '7', '10', '3'], correct: 0 },
+    { q: '"განათლება" რას ნიშნავს?', options: ['Education', 'Nation', 'Freedom', 'History'], correct: 0 },
+    { q: 'ქართული ენა რომელ ენათა ოჯახს მიეკუთვნება?', options: ['ქართველური', 'ინდოევროპული', 'თურქული', 'სლავური'], correct: 0 },
+  ],
+  English: [
+    { q: 'What is the past tense of "go"?', options: ['went', 'goed', 'gone', 'going'], correct: 0 },
+    { q: 'Which is a conjunction?', options: ['and', 'run', 'big', 'quickly'], correct: 0 },
+    { q: '"I have been studying" is what tense?', options: ['Present perfect continuous', 'Past simple', 'Future', 'Present simple'], correct: 0 },
+    { q: 'What is the plural of "child"?', options: ['children', 'childs', 'childes', 'childern'], correct: 0 },
+    { q: 'Which sentence is correct?', options: ['She doesn\'t like it', 'She don\'t like it', 'She doesn\'t likes it', 'She not like it'], correct: 0 },
+  ],
+};
+
+const FLASHCARDS = [
+  { front: 'What is the Pythagorean theorem?', back: 'a² + b² = c² (where c is the hypotenuse)' },
+  { front: 'Define velocity', back: 'The rate of change of position. v = Δx/Δt (displacement over time)' },
+  { front: 'What is mitosis?', back: 'Cell division that results in two identical daughter cells, each with the same number of chromosomes as the parent.' },
+  { front: 'What is a quadratic equation?', back: 'An equation of the form ax² + bx + c = 0, solved using the formula x = (-b ± √(b²-4ac)) / 2a' },
+  { front: 'Newton\'s Third Law', back: 'For every action, there is an equal and opposite reaction.' },
+  { front: 'What is photosynthesis?', back: 'The process by which plants convert light energy, CO₂, and water into glucose and oxygen: 6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂' },
+  { front: 'Present Perfect tense', back: 'Formed with have/has + past participle. Used for actions that happened at an unspecified time or started in the past and continue.' },
+  { front: 'What is the derivative of sin(x)?', back: 'cos(x)' },
+];
+
+const MOCK_NOTIFICATIONS = [
+  { icon: '📝', title: { en: 'Math homework due tomorrow', ka: 'მათემატიკის საშინაო ხვალ' }, desc: { en: 'Problems 1-15, page 87', ka: 'ამოცანები 1-15, გვ. 87' }, time: { en: '2 hours ago', ka: '2 საათის წინ' }, unread: true },
+  { icon: '📊', title: { en: 'New grade in Physics', ka: 'ახალი ნიშანი ფიზიკაში' }, desc: { en: 'You got 9/10 on Lab Report', ka: 'მიიღე 9/10 ლაბორატორიულზე' }, time: { en: '5 hours ago', ka: '5 საათის წინ' }, unread: true },
+  { icon: '🔥', title: { en: '7-day streak!', ka: '7-დღიანი სტრიქი!' }, desc: { en: 'Amazing! Keep studying every day.', ka: 'შესანიშნავია! ყოველდღე ისწავლე.' }, time: { en: '1 day ago', ka: '1 დღის წინ' }, unread: true },
+];
+
+const STREAK_BADGES = [
+  { icon: '🔥', label: { en: '3-Day Streak', ka: '3-დღიანი სტრიქი' }, earned: true },
+  { icon: '🌟', label: { en: '7-Day Streak', ka: '7-დღიანი სტრიქი' }, earned: true },
+  { icon: '📚', label: { en: 'Bookworm (10h)', ka: 'წიგნის ჭია (10სთ)' }, earned: true },
+  { icon: '🎯', label: { en: 'Perfect Quiz', ka: 'იდეალური ქვიზი' }, earned: true },
+  { icon: '💎', label: { en: '30-Day Streak', ka: '30-დღიანი სტრიქი' }, earned: false },
+  { icon: '🏆', label: { en: 'Top Student', ka: 'საუკეთესო მოსწავლე' }, earned: false },
+];
+
+const TOUR_STEPS = [
+  { title: { en: 'Welcome to StudyHub!', ka: 'მოგესალმება StudyHub!' }, desc: { en: 'Let\'s take a quick tour to help you get started. Your AI study companion is ready!', ka: 'მოდი სწრაფად გაგიკეთოთ ტური. შენი AI ასისტენტი მზადაა!' }},
+  { title: { en: 'Your Dashboard', ka: 'შენი პანელი' }, desc: { en: 'See your schedule, grades, deadlines, and AI suggestions all in one place.', ka: 'ნახე განრიგი, ნიშნები, ვადები და AI რეკომენდაციები ერთ ადგილას.' }},
+  { title: { en: 'AI Assistant', ka: 'AI ასისტენტი' }, desc: { en: 'Click the chat button anytime for homework help, explanations, quizzes, and study plans.', ka: 'დააჭირე ჩატის ღილაკს ნებისმიერ დროს — საშინაოს დახმარება, განმარტებები, ქვიზები.' }},
+  { title: { en: 'Connect Your Accounts', ka: 'დააკავშირე ანგარიშები' }, desc: { en: 'Link your school platforms to sync grades and homework automatically.', ka: 'დააკავშირე სკოლის პლატფორმები ნიშნების ავტომატური სინქრონიზაციისთვის.' }},
+  { title: { en: 'You\'re All Set!', ka: 'ყველაფერი მზადაა!' }, desc: { en: 'Explore the planner, library, practice tools, and focus timer. Happy studying! 🎓', ka: 'შისწავლე გეგმა, ბიბლიოთეკა, ვარჯიში და ფოკუს ტაიმერი. წარმატებებს! 🎓' }},
+];
+
+/* ============================================================
+   =================== APP STATE =================================
+   ============================================================ */
+let state = {
+  currentView: 'landing',
+  language: 'en',
+  theme: 'light',
+  onboardingStep: 0,
+  selectedCountry: 'ge',
+  selectedSubjects: ['Math', 'Physics', 'English', 'Biology'],
+  selectedGoals: [0, 2],
+  connectedAccounts: [],
+  chatMessages: [],
+  chatMode: 'general',
+  plannerTasks: [],
+  plannerWeekOffset: 0,
+  quizState: null,
+  flashcardIndex: 0,
+  scoreHistory: [],
+  pomodoroRunning: false,
+  studyStreak: 7,
+  notifications: [...MOCK_NOTIFICATIONS],
+};
+
+function loadState() {
+  try {
+    const saved = localStorage.getItem(LS_KEYS.state);
+    if (saved) state = { ...state, ...JSON.parse(saved) };
+    state.theme = localStorage.getItem(LS_KEYS.theme) || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    state.language = localStorage.getItem(LS_KEYS.lang) || 'en';
+  } catch (e) { console.warn('Could not load state:', e); }
+}
+
+function saveState() {
+  try {
+    localStorage.setItem(LS_KEYS.state, JSON.stringify(state));
+    localStorage.setItem(LS_KEYS.theme, state.theme);
+    localStorage.setItem(LS_KEYS.lang, state.language);
+  } catch (e) { console.warn('Could not save state:', e); }
+}
+
+/* ============================================================
+   ===================== i18n ENGINE ============================
+   ============================================================ */
+function t(key) {
+  const dict = i18n[state.language] || i18n.en;
+  return dict[key] || i18n.en[key] || key;
+}
+
+function applyTranslations() {
+  document.documentElement.lang = state.language;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    const val = t(key);
+    if (val) el.textContent = val;
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    const val = t(key);
+    if (val) el.placeholder = val;
+  });
+  document.getElementById('langLabel').textContent = state.language === 'en' ? 'KA' : 'EN';
+}
+
+function setLanguage(lang) {
+  state.language = lang;
+  applyTranslations();
+  renderCurrentView();
+  saveState();
+  const sel = document.getElementById('settingsLang');
+  if (sel) sel.value = lang;
+}
+
+function toggleLanguage() {
+  setLanguage(state.language === 'en' ? 'ka' : 'en');
+}
+
+/* ============================================================
+   =================== THEME ====================================
+   ============================================================ */
+function setTheme(theme) {
+  state.theme = theme;
+  document.documentElement.setAttribute('data-theme', theme);
+  const icon = document.getElementById('themeIcon');
+  if (theme === 'dark') {
+    icon.innerHTML = '<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>';
+  } else {
+    icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+  }
+  saveState();
+}
+
+function toggleTheme() {
+  setTheme(state.theme === 'light' ? 'dark' : 'light');
+}
+
+/* ============================================================
+   ================== NAVIGATION ================================
+   ============================================================ */
+function navigateTo(view) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  const target = document.getElementById('view-' + view);
+  if (target) {
+    target.classList.add('active');
+    state.currentView = view;
+    saveState();
+  }
+  // Update sidebar
+  document.querySelectorAll('.sidebar-nav-item').forEach(b => {
+    b.classList.toggle('active', b.dataset.view === view);
+  });
+  // Update bottom nav
+  document.querySelectorAll('.bottom-nav-item').forEach(b => {
+    b.classList.toggle('active', b.dataset.view === view);
+  });
+  // Show/hide chat button (only on app views)
+  const appViews = ['dashboard', 'planner', 'grades', 'library', 'practice', 'focus', 'accounts', 'settings'];
+  document.getElementById('chatFloatBtn').style.display = appViews.includes(view) ? 'flex' : 'none';
+  // Scroll top
+  window.scrollTo(0, 0);
+  // Render view content
+  renderCurrentView();
+}
+
+function renderCurrentView() {
+  const v = state.currentView;
+  if (v === 'dashboard') renderDashboard();
+  if (v === 'planner') renderPlanner();
+  if (v === 'grades') renderGrades();
+  if (v === 'library') renderLibrary();
+  if (v === 'accounts') renderAccounts();
+  if (v === 'focus') renderFocus();
+  if (v === 'practice') renderScoreHistory();
+}
+
+/* ============================================================
+   ================= AUTH / ONBOARDING ==========================
+   ============================================================ */
+function switchAuthTab(tab) {
+  document.querySelectorAll('.auth-tab').forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+  if (tab === 'login') {
+    document.querySelectorAll('.auth-tab')[0].classList.add('active');
+    document.querySelectorAll('.auth-tab')[0].setAttribute('aria-selected','true');
+    document.getElementById('authLoginForm').classList.remove('hidden');
+    document.getElementById('authSignupForm').classList.add('hidden');
+  } else {
+    document.querySelectorAll('.auth-tab')[1].classList.add('active');
+    document.querySelectorAll('.auth-tab')[1].setAttribute('aria-selected','true');
+    document.getElementById('authLoginForm').classList.add('hidden');
+    document.getElementById('authSignupForm').classList.remove('hidden');
+  }
+}
+
+function doLogin() { navigateTo('onboarding'); renderOnboarding(); }
+function doSignup() { navigateTo('onboarding'); renderOnboarding(); }
+
+function renderOnboarding() {
+  // Country grid
+  const cg = document.getElementById('countryGrid');
+  cg.innerHTML = COUNTRIES.map(c => `<div class="option-card ${state.selectedCountry === c.id ? 'selected' : ''}" onclick="selectCountry('${c.id}')" tabindex="0" role="radio" aria-checked="${state.selectedCountry === c.id}">${c.flag} ${c.name[state.language] || c.name.en}</div>`).join('');
+  // Subject grid
+  const sg = document.getElementById('subjectGrid');
+  const subjectsEn = ['Math', 'Physics', 'Georgian', 'English', 'Biology', 'History', 'Chemistry', 'Geography', 'Literature', 'CS'];
+  sg.innerHTML = subjectsEn.map((s, i) => `<div class="option-card ${state.selectedSubjects.includes(SUBJECTS_LIST[i]) ? 'selected' : ''}" onclick="toggleSubject('${SUBJECTS_LIST[i]}')" tabindex="0" role="checkbox" aria-checked="${state.selectedSubjects.includes(SUBJECTS_LIST[i])}">${s}</div>`).join('');
+  // Goals grid
+  const gg = document.getElementById('goalGrid');
+  gg.innerHTML = GOALS_LIST.map((g, i) => `<div class="option-card ${state.selectedGoals.includes(i) ? 'selected' : ''}" onclick="toggleGoal(${i})" tabindex="0" role="checkbox" aria-checked="${state.selectedGoals.includes(i)}">${g[state.language] || g.en}</div>`).join('');
+  updateOnboardingStep();
+}
+
+function selectCountry(id) { state.selectedCountry = id; renderOnboarding(); }
+function toggleSubject(s) {
+  const idx = state.selectedSubjects.indexOf(s);
+  if (idx > -1) state.selectedSubjects.splice(idx, 1); else state.selectedSubjects.push(s);
+  renderOnboarding();
+}
+function toggleGoal(i) {
+  const idx = state.selectedGoals.indexOf(i);
+  if (idx > -1) state.selectedGoals.splice(idx, 1); else state.selectedGoals.push(i);
+  renderOnboarding();
+}
+
+function updateOnboardingStep() {
+  for (let i = 0; i < 4; i++) {
+    document.getElementById('ostep' + i).classList.toggle('active', i === state.onboardingStep);
+    const dot = document.getElementById('oprog' + i);
+    dot.className = 'onboarding-progress-dot';
+    if (i < state.onboardingStep) dot.classList.add('completed');
+    if (i === state.onboardingStep) dot.classList.add('current');
+  }
+  document.getElementById('onbBack').style.display = state.onboardingStep === 0 ? 'none' : 'block';
+  const nextBtn = document.getElementById('onbNext');
+  nextBtn.textContent = state.onboardingStep === 3 ? t('onbFinish') : t('onbNext');
+}
+
+function onboardingNext() {
+  if (state.onboardingStep < 3) {
+    state.onboardingStep++;
+    updateOnboardingStep();
+  } else {
+    saveState();
+    navigateTo('dashboard');
+    if (!localStorage.getItem(LS_KEYS.tourDone)) {
+      setTimeout(startTour, 500);
+    }
+  }
+}
+
+function onboardingBack() {
+  if (state.onboardingStep > 0) { state.onboardingStep--; updateOnboardingStep(); }
+}
+
+/* ============================================================
+   =================== DASHBOARD ================================
+   ============================================================ */
+function renderDashboard() {
+  // Schedule
+  const sched = document.getElementById('dashSchedule');
+  sched.innerHTML = MOCK_SCHEDULE.map(s => `
+    <div class="schedule-item">
+      <div class="schedule-time">${s.time}</div>
+      <div><div class="schedule-subject">${s.subject}</div><div class="schedule-room">${s.room} — ${s.teacher}</div></div>
+    </div>
+  `).join('');
+
+  // Deadlines
+  const dl = document.getElementById('dashDeadlines');
+  dl.innerHTML = MOCK_DEADLINES.map(d => `
+    <div class="deadline-item">
+      <div class="deadline-date ${d.urgency}">${d.date}</div>
+      <div class="deadline-info">
+        <div class="deadline-title">${d.title[state.language] || d.title.en}</div>
+        <div class="deadline-subject">${d.subject}</div>
+      </div>
+    </div>
+  `).join('');
+
+  // Homework
+  const hw = document.getElementById('dashHomework');
+  hw.innerHTML = MOCK_HOMEWORK.map(h => `
+    <div class="deadline-item">
+      <div class="deadline-date normal">${h.due}</div>
+      <div class="deadline-info">
+        <div class="deadline-title">${h.title[state.language] || h.title.en}</div>
+        <div class="deadline-subject">${h.subject}</div>
+      </div>
+    </div>
+  `).join('');
+
+  // Grade summary
+  const gs = document.getElementById('dashGradeSummary');
+  gs.innerHTML = MOCK_GRADES.slice(0, 4).map(g => `
+    <div style="display:flex;align-items:center;gap:12px;padding:8px 0;">
+      <div class="grade-dot" style="background:${g.color};" aria-hidden="true"></div>
+      <div style="flex:1;font-weight:500;font-size:var(--font-size-sm);">${g.subject}</div>
+      <div style="font-weight:700;">${g.avg}</div>
+      <div style="font-size:var(--font-size-xs);color:${g.trend==='up'?'var(--accent-success)':g.trend==='down'?'var(--accent-danger)':'var(--text-tertiary)'};">
+        ${g.trend==='up'?'↑':g.trend==='down'?'↓':'→'}
+      </div>
+    </div>
+  `).join('');
+
+  // Weekly chart
+  renderWeeklyChart();
+}
+
+function renderWeeklyChart() {
+  const container = document.getElementById('weeklyChart');
+  if (!container) return;
+  const days = state.language === 'ka' ? ['ორშ','სამ','ოთხ','ხუთ','პარ','შაბ','კვი'] : ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const data = [45, 60, 30, 75, 55, 90, 40]; // minutes studied
+  const max = Math.max(...data);
+  const w = 350, h = 180, pad = 30, barW = (w - pad * 2) / 7 - 8;
+  let svg = `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Weekly study chart">`;
+  svg += `<defs><linearGradient id="barGrad" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#4f46e5"/><stop offset="100%" stop-color="#0d9488"/></linearGradient></defs>`;
+  data.forEach((d, i) => {
+    const x = pad + i * ((w - pad * 2) / 7) + 4;
+    const barH = (d / max) * (h - pad * 2);
+    const y = h - pad - barH;
+    svg += `<rect x="${x}" y="${y}" width="${barW}" height="${barH}" rx="4" fill="url(#barGrad)" opacity="0.85"><animate attributeName="height" from="0" to="${barH}" dur="0.5s" fill="freeze"/><animate attributeName="y" from="${h-pad}" to="${y}" dur="0.5s" fill="freeze"/></rect>`;
+    svg += `<text x="${x + barW/2}" y="${h - 8}" text-anchor="middle" fill="${getComputedStyle(document.documentElement).getPropertyValue('--text-tertiary')}" font-size="11" font-family="var(--font-family)">${days[i]}</text>`;
+    svg += `<text x="${x + barW/2}" y="${y - 6}" text-anchor="middle" fill="${getComputedStyle(document.documentElement).getPropertyValue('--text-secondary')}" font-size="10" font-family="var(--font-family)">${d}m</text>`;
+  });
+  svg += '</svg>';
+  container.innerHTML = svg;
+}
+
+/* ============================================================
+   ================== ACCOUNTS ==================================
+   ============================================================ */
+function renderAccounts() {
+  const grid = document.getElementById('connectorsGrid');
+  grid.innerHTML = CONNECTORS.map(c => {
+    const connected = state.connectedAccounts.includes(c.id);
+    const name = typeof c.name === 'object' ? (c.name[state.language] || c.name.en) : c.name;
+    const desc = typeof c.desc === 'object' ? (c.desc[state.language] || c.desc.en) : c.desc;
+    return `
+      <div class="card connector-card">
+        <div class="connector-icon" style="background:${c.color}20;color:${c.color};">${c.icon}</div>
+        <div class="connector-name">${name}</div>
+        <div class="connector-desc">${desc}</div>
+        <div class="connector-status">
+          ${connected ? '<span class="badge badge-success">✓ Connected</span>' : '<span class="badge badge-info">Not connected</span>'}
+        </div>
+        <div class="connector-actions">
+          ${connected
+            ? `<button class="btn btn-sm btn-danger" onclick="disconnectAccount('${c.id}')" aria-label="Disconnect ${name}">Disconnect</button>`
+            : `<button class="btn btn-sm btn-primary" onclick="connectAccount('${c.id}')" aria-label="Connect ${name}">Connect</button>`}
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function connectAccount(id) {
+  openModal(
+    state.language === 'ka' ? 'დაკავშირება...' : 'Connecting...',
+    `<div style="text-align:center;padding:20px;">
+      <div class="animate-spin" style="width:40px;height:40px;border:3px solid var(--border-color);border-top-color:var(--accent-primary);border-radius:50%;margin:0 auto 16px;"></div>
+      <p style="color:var(--text-secondary);">${state.language === 'ka' ? 'უსაფრთხო კავშირის დამყარება...' : 'Establishing secure connection...'}</p>
+      <p style="color:var(--text-tertiary);font-size:var(--font-size-xs);margin-top:8px;">${state.language === 'ka' ? 'ეს დემოა — რეალური კავშირი არ ხდება' : 'This is a demo — no real connection is made'}</p>
+    </div>`,
+    ''
+  );
+  setTimeout(() => {
+    state.connectedAccounts.push(id);
+    saveState();
+    const conn = CONNECTORS.find(c => c.id === id);
+    const name = typeof conn.name === 'object' ? (conn.name[state.language] || conn.name.en) : conn.name;
+    openModal(
+      state.language === 'ka' ? 'წარმატებით დაკავშირდა!' : 'Successfully Connected!',
+      `<div class="connect-animation">
+        <div class="connect-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg></div>
+        <h3>${name}</h3>
+        <p style="color:var(--text-secondary);margin-top:8px;">${state.language === 'ka' ? 'მონაცემები სინქრონიზდება' : 'Data is now syncing'}</p>
+      </div>`,
+      `<button class="btn btn-primary" onclick="closeModal();renderAccounts();showToast('${state.language === 'ka' ? 'ანგარიში დაკავშირებულია!' : 'Account connected!'}','success');">${state.language === 'ka' ? 'მზადაა' : 'Done'}</button>`
+    );
+  }, 2000);
+}
+
+function disconnectAccount(id) {
+  state.connectedAccounts = state.connectedAccounts.filter(a => a !== id);
+  saveState();
+  renderAccounts();
+  showToast(state.language === 'ka' ? 'ანგარიში გათიშულია' : 'Account disconnected', 'info');
+}
+
+/* ============================================================
+   =================== PLANNER ==================================
+   ============================================================ */
+function renderPlanner() {
+  const days = state.language === 'ka'
+    ? ['ორშ','სამ','ოთხ','ხუთ','პარ','შაბ','კვი']
+    : ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  const today = new Date();
+  const mondayOffset = (today.getDay() + 6) % 7;
+  const monday = new Date(today);
+  monday.setDate(today.getDate() - mondayOffset + state.plannerWeekOffset * 7);
+
+  const startStr = monday.toLocaleDateString('en', { month: 'short', day: 'numeric' });
+  const endStr = new Date(monday.getTime() + 6*86400000).toLocaleDateString('en', { month: 'short', day: 'numeric' });
+  document.getElementById('plannerWeek').textContent = `${startStr} - ${endStr}`;
+
+  // Default tasks if empty
+  if (state.plannerTasks.length === 0) {
+    state.plannerTasks = [
+      { id: 1, text: 'Math homework: Ch.5 problems', subject: 'Math', priority: 'high', day: 0 },
+      { id: 2, text: 'Read Georgian literature', subject: 'Georgian', priority: 'medium', day: 1 },
+      { id: 3, text: 'Physics lab report', subject: 'Physics', priority: 'high', day: 2 },
+      { id: 4, text: 'English vocabulary review', subject: 'English', priority: 'low', day: 3 },
+      { id: 5, text: 'Biology chapter summary', subject: 'Biology', priority: 'medium', day: 4 },
+    ];
+  }
+
+  const grid = document.getElementById('weekGrid');
+  grid.innerHTML = days.map((day, i) => {
+    const date = new Date(monday.getTime() + i * 86400000);
+    const isToday = date.toDateString() === today.toDateString();
+    const dayTasks = state.plannerTasks.filter(t => t.day === i);
+    return `
+      <div class="day-column ${isToday ? 'day-today' : ''}" data-day="${i}" ondragover="event.preventDefault()" ondrop="dropTask(event,${i})">
+        <div class="day-header">${day}<br><span style="font-weight:400;font-size:var(--font-size-xs);color:var(--text-tertiary);">${date.getDate()}</span></div>
+        ${dayTasks.map(t => `
+          <div class="task-card ${t.priority}" draggable="true" ondragstart="dragTask(event,${t.id})" tabindex="0">
+            ${t.text}
+            <div style="font-size:10px;color:var(--text-tertiary);margin-top:2px;">${t.subject}</div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  }).join('');
+}
+
+function plannerPrev() { state.plannerWeekOffset--; renderPlanner(); }
+function plannerNext() { state.plannerWeekOffset++; renderPlanner(); }
+
+function addTask() {
+  const input = document.getElementById('newTaskInput');
+  const subject = document.getElementById('newTaskSubject').value;
+  const priority = document.getElementById('newTaskPriority').value;
+  if (!input.value.trim()) return;
+  state.plannerTasks.push({ id: Date.now(), text: input.value, subject, priority, day: 0 });
+  input.value = '';
+  saveState();
+  renderPlanner();
+  showToast(state.language === 'ka' ? 'დავალება დამატებულია!' : 'Task added!', 'success');
+}
+
+let draggedTaskId = null;
+function dragTask(e, id) { draggedTaskId = id; e.dataTransfer.effectAllowed = 'move'; }
+function dropTask(e, day) {
+  e.preventDefault();
+  if (draggedTaskId === null) return;
+  const task = state.plannerTasks.find(t => t.id === draggedTaskId);
+  if (task) { task.day = day; saveState(); renderPlanner(); }
+  draggedTaskId = null;
+}
+
+function autoPlanWeek() {
+  state.plannerTasks = [
+    { id: 1, text: state.language==='ka'?'მათე: კვადრატული განტოლებები':'Math: Quadratic eq. review', subject: 'Math', priority: 'high', day: 0 },
+    { id: 2, text: state.language==='ka'?'ფიზიკა: ნიუტონის კანონები':'Physics: Newton\'s laws', subject: 'Physics', priority: 'high', day: 0 },
+    { id: 3, text: state.language==='ka'?'ინგლისური: ზმნის დროები':'English: Verb tenses', subject: 'English', priority: 'medium', day: 1 },
+    { id: 4, text: state.language==='ka'?'ბიოლოგია: უჯრედის გაყოფა':'Biology: Cell division', subject: 'Biology', priority: 'medium', day: 1 },
+    { id: 5, text: state.language==='ka'?'ქართული: რუსთაველის პოეზია':'Georgian: Rustaveli poetry', subject: 'Georgian', priority: 'low', day: 2 },
+    { id: 6, text: state.language==='ka'?'მათე: პრაქტიკული ამოცანები':'Math: Practice problems', subject: 'Math', priority: 'high', day: 2 },
+    { id: 7, text: state.language==='ka'?'ფიზიკა: ლაბორატორიული':'Physics: Lab report', subject: 'Physics', priority: 'high', day: 3 },
+    { id: 8, text: state.language==='ka'?'ისტორია: თავი 8 კონსპექტი':'History: Ch.8 notes', subject: 'History', priority: 'low', day: 3 },
+    { id: 9, text: state.language==='ka'?'კვირის განმეორება':'Weekly review session', subject: 'General', priority: 'medium', day: 4 },
+  ];
+  saveState();
+  renderPlanner();
+  showToast(state.language==='ka'?'კვირა ავტომატურად დაიგეგმა!':'Week auto-planned! 🎉','success');
+}
+
+/* ============================================================
+   =================== GRADES ===================================
+   ============================================================ */
+function renderGrades() {
+  const grid = document.getElementById('gradesGrid');
+  grid.innerHTML = MOCK_GRADES.map(g => {
+    const trendIcon = g.trend === 'up' ? '↑' : g.trend === 'down' ? '↓' : '→';
+    const trendColor = g.trend === 'up' ? 'var(--accent-success)' : g.trend === 'down' ? 'var(--accent-danger)' : 'var(--text-tertiary)';
+    // Mini sparkline
+    const sparkW = 120, sparkH = 30;
+    const maxG = Math.max(...g.grades), minG = Math.min(...g.grades);
+    const range = maxG - minG || 1;
+    const points = g.grades.map((v, i) => `${(i / (g.grades.length - 1)) * sparkW},${sparkH - ((v - minG) / range) * sparkH}`).join(' ');
+    return `
+      <div class="card grade-card">
+        <div class="grade-subject"><span class="grade-dot" style="background:${g.color};" aria-hidden="true"></span>${g.subject}</div>
+        <div class="grade-average" style="color:${g.color};">${g.avg}</div>
+        <div class="grade-trend" style="color:${trendColor};">${trendIcon} ${g.trend}</div>
+        <div class="grade-target">${state.language==='ka'?'მიზანი':'Target'}: ${g.target}</div>
+        <svg width="${sparkW}" height="${sparkH}" style="margin-top:12px;"><polyline points="${points}" fill="none" stroke="${g.color}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="progress-bar mt-2"><div class="progress-fill" style="width:${(g.avg/10)*100}%;background:${g.color};"></div></div>
+      </div>
+    `;
+  }).join('');
+
+  // Weak topics
+  const wt = document.getElementById('weakTopics');
+  wt.innerHTML = MOCK_WEAK_TOPICS.map(tp => `
+    <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border-color);">
+      <span style="color:var(--accent-warning);">⚠️</span>
+      <span style="flex:1;font-weight:500;font-size:var(--font-size-sm);">${tp[state.language] || tp.en}</span>
+      <button class="btn btn-sm btn-outline" onclick="openChat();document.getElementById('chatInput').value='${state.language==='ka'?'ამიხსენი':'Explain'}: ${tp.en}';" aria-label="Get AI help on this topic">
+        ${state.language==='ka'?'AI დახმარება':'Get AI Help'}
+      </button>
+    </div>
+  `).join('');
+}
+
+/* ============================================================
+   =================== LIBRARY ==================================
+   ============================================================ */
+function renderLibrary() {
+  const shelf = document.getElementById('libraryShelf');
+  shelf.innerHTML = MOCK_BOOKS.map(b => `
+    <div class="book-card" onclick="showToast('${state.language==='ka'?'წიგნი იხსნება...':'Opening book...'}','info')" tabindex="0" role="button">
+      <div class="book-cover" style="background:linear-gradient(135deg, ${b.color}, ${b.color}88);">${b.title[state.language] || b.title.en}</div>
+      <div class="book-title">${b.title[state.language] || b.title.en}</div>
+      <div class="book-author">${b.author[state.language] || b.author.en}</div>
+    </div>
+  `).join('');
+
+  const notes = document.getElementById('notesShelf');
+  notes.innerHTML = MOCK_NOTES.map(n => `
+    <div class="book-card" onclick="showToast('${state.language==='ka'?'კონსპექტი იხსნება...':'Opening notes...'}','info')" tabindex="0" role="button">
+      <div class="book-cover" style="background:linear-gradient(135deg, #6b7280, #9ca3af);font-size:32px;">${n.icon}</div>
+      <div class="book-title">${n.title[state.language] || n.title.en}</div>
+    </div>
+  `).join('');
+}
+
+/* ============================================================
+   ================== PRACTICE / QUIZ ===========================
+   ============================================================ */
+function startQuiz() {
+  const subject = document.getElementById('quizSubject').value;
+  const questions = QUIZ_QUESTIONS[subject] || QUIZ_QUESTIONS.Math;
+  state.quizState = { questions: [...questions].sort(() => Math.random() - 0.5), current: 0, score: 0, subject, answered: false };
+  document.getElementById('quizArea').classList.remove('hidden');
+  document.getElementById('quizResults').classList.add('hidden');
+  document.getElementById('flashcardArea').classList.add('hidden');
+  renderQuizQuestion();
+}
+
+function renderQuizQuestion() {
+  const qs = state.quizState;
+  if (!qs) return;
+  const q = qs.questions[qs.current];
+  document.getElementById('quizProgress').textContent = `${state.language==='ka'?'კითხვა':'Question'} ${qs.current + 1} / ${qs.questions.length}`;
+  document.getElementById('quizProgressBar').style.width = `${((qs.current) / qs.questions.length) * 100}%`;
+  document.getElementById('quizQuestion').textContent = q.q;
+  const optDiv = document.getElementById('quizOptions');
+  optDiv.innerHTML = q.options.map((o, i) => `
+    <button class="quiz-option" onclick="answerQuiz(${i})" aria-label="Option ${i+1}: ${o}">${o}</button>
+  `).join('');
+  document.getElementById('quizFeedback').classList.add('hidden');
+  document.getElementById('quizNextBtn').classList.add('hidden');
+  qs.answered = false;
+}
+
+function answerQuiz(idx) {
+  const qs = state.quizState;
+  if (!qs || qs.answered) return;
+  qs.answered = true;
+  const q = qs.questions[qs.current];
+  const opts = document.querySelectorAll('.quiz-option');
+  opts.forEach((o, i) => {
+    if (i === q.correct) o.classList.add('correct');
+    if (i === idx && idx !== q.correct) o.classList.add('incorrect');
+    o.style.pointerEvents = 'none';
+  });
+  const fb = document.getElementById('quizFeedback');
+  fb.classList.remove('hidden');
+  if (idx === q.correct) {
+    qs.score++;
+    fb.className = 'quiz-feedback correct';
+    fb.textContent = state.language === 'ka' ? '✅ სწორია! კარგი სამუშაო!' : '✅ Correct! Great job!';
+  } else {
+    fb.className = 'quiz-feedback incorrect';
+    fb.textContent = (state.language === 'ka' ? '❌ არასწორი. სწორი პასუხია: ' : '❌ Not quite. The correct answer is: ') + q.options[q.correct];
+  }
+  document.getElementById('quizNextBtn').classList.remove('hidden');
+  document.getElementById('quizNextBtn').textContent = qs.current < qs.questions.length - 1 ? t('practiceNext') : (state.language === 'ka' ? 'შედეგების ნახვა →' : 'See Results →');
+}
+
+function nextQuizQuestion() {
+  const qs = state.quizState;
+  if (qs.current < qs.questions.length - 1) {
+    qs.current++;
+    renderQuizQuestion();
+  } else {
+    showQuizResults();
+  }
+}
+
+function showQuizResults() {
+  const qs = state.quizState;
+  document.getElementById('quizArea').classList.add('hidden');
+  document.getElementById('quizResults').classList.remove('hidden');
+  const pct = Math.round((qs.score / qs.questions.length) * 100);
+  document.getElementById('quizScoreDisplay').textContent = `${qs.score}/${qs.questions.length} (${pct}%)`;
+  document.getElementById('quizScoreMsg').textContent = pct >= 80
+    ? (state.language === 'ka' ? 'შესანიშნავი! მშვენივრად იცი!' : 'Excellent! You know this well!')
+    : pct >= 50
+      ? (state.language === 'ka' ? 'კარგად! ცოტა მეტი ვარჯიში დასჭირდება.' : 'Good job! A bit more practice needed.')
+      : (state.language === 'ka' ? 'კიდევ სცადე! AI-ს შეუძლია დაგეხმაროს.' : 'Keep trying! The AI assistant can help you study.');
+  // Save to history
+  state.scoreHistory.unshift({ subject: qs.subject, score: qs.score, total: qs.questions.length, date: new Date().toLocaleDateString() });
+  if (state.scoreHistory.length > 20) state.scoreHistory.pop();
+  saveState();
+  renderScoreHistory();
+}
+
+function renderScoreHistory() {
+  const div = document.getElementById('scoreHistory');
+  if (!div) return;
+  if (state.scoreHistory.length === 0) {
+    div.innerHTML = `<p style="color:var(--text-tertiary);font-size:var(--font-size-sm);padding:12px 0;">${state.language === 'ka' ? 'ჯერ ქვიზები არ გაგივლია' : 'No quiz history yet. Take a quiz to see your scores!'}</p>`;
+    return;
+  }
+  div.innerHTML = state.scoreHistory.map(s => `
+    <div style="display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border-color);">
+      <span style="font-weight:700;min-width:40px;">${Math.round((s.score/s.total)*100)}%</span>
+      <span style="flex:1;font-size:var(--font-size-sm);">${s.subject}</span>
+      <span style="font-size:var(--font-size-xs);color:var(--text-tertiary);">${s.date}</span>
+    </div>
+  `).join('');
+}
+
+/* Flashcards */
+function showFlashcards() {
+  document.getElementById('quizArea').classList.add('hidden');
+  document.getElementById('quizResults').classList.add('hidden');
+  document.getElementById('flashcardArea').classList.remove('hidden');
+  state.flashcardIndex = 0;
+  renderFlashcard();
+}
+
+function renderFlashcard() {
+  const fc = FLASHCARDS[state.flashcardIndex];
+  document.getElementById('fcFront').textContent = fc.front;
+  document.getElementById('fcBack').textContent = fc.back;
+  document.getElementById('flashcard').classList.remove('flipped');
+  document.getElementById('fcCounter').textContent = `${state.flashcardIndex + 1} / ${FLASHCARDS.length}`;
+}
+
+function flipFlashcard() {
+  document.getElementById('flashcard').classList.toggle('flipped');
+}
+
+function nextFlashcard() {
+  state.flashcardIndex = (state.flashcardIndex + 1) % FLASHCARDS.length;
+  renderFlashcard();
+}
+
+function prevFlashcard() {
+  state.flashcardIndex = (state.flashcardIndex - 1 + FLASHCARDS.length) % FLASHCARDS.length;
+  renderFlashcard();
+}
+
+function rateFlashcard(rating) {
+  showToast(rating === 'easy' ? (state.language==='ka'?'ადვილი! 👍':'Easy! 👍') : rating === 'ok' ? (state.language==='ka'?'კარგი 👍':'OK 👍') : (state.language==='ka'?'რთულია - განმეორდება':'Hard — will repeat'), 'info');
+  nextFlashcard();
+}
+
+/* ============================================================
+   =================== FOCUS / POMODORO =========================
+   ============================================================ */
+let pomoInterval = null;
+let pomoSeconds = 25 * 60;
+let pomoTotal = 25 * 60;
+let pomoRunning = false;
+
+function setPomoMode(btn, minutes) {
+  document.querySelectorAll('.podo-mode').forEach(b => { b.classList.remove('active'); b.classList.add('btn-secondary'); b.classList.remove('btn-outline'); });
+  btn.classList.add('active');
+  btn.classList.remove('btn-secondary');
+  btn.classList.add('btn-outline');
+  resetPomodoro();
+  pomoTotal = minutes * 60;
+  pomoSeconds = pomoTotal;
+  updatePomoDisplay();
+}
+
+function togglePomodoro() {
+  if (pomoRunning) {
+    clearInterval(pomoInterval);
+    pomoRunning = false;
+    document.getElementById('pomoStartBtn').innerHTML = t('focusStart');
+    document.getElementById('pomoLabel').textContent = state.language === 'ka' ? 'პაუზა' : 'Paused';
+  } else {
+    pomoRunning = true;
+    document.getElementById('pomoStartBtn').innerHTML = t('focusPause');
+    document.getElementById('pomoLabel').textContent = state.language === 'ka' ? 'ფოკუსირებული...' : 'Focusing...';
+    pomoInterval = setInterval(() => {
+      pomoSeconds--;
+      if (pomoSeconds <= 0) {
+        clearInterval(pomoInterval);
+        pomoRunning = false;
+        document.getElementById('pomoStartBtn').innerHTML = t('focusStart');
+        document.getElementById('pomoLabel').textContent = state.language === 'ka' ? 'დრო ამოიწურა!' : 'Time\'s up!';
+        showToast(state.language === 'ka' ? '🎉 პომოდორო დასრულდა!' : '🎉 Pomodoro complete! Take a break.', 'success');
+        pomoSeconds = 0;
+      }
+      updatePomoDisplay();
+    }, 1000);
+  }
+}
+
+function resetPomodoro() {
+  clearInterval(pomoInterval);
+  pomoRunning = false;
+  pomoSeconds = pomoTotal;
+  document.getElementById('pomoStartBtn').innerHTML = t('focusStart');
+  document.getElementById('pomoLabel').textContent = t('focusReady');
+  updatePomoDisplay();
+}
+
+function updatePomoDisplay() {
+  const m = Math.floor(pomoSeconds / 60);
+  const s = pomoSeconds % 60;
+  document.getElementById('pomoTime').textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  const circumference = 2 * Math.PI * 124;
+  const offset = circumference * (1 - pomoSeconds / pomoTotal);
+  document.getElementById('pomoRing').setAttribute('stroke-dashoffset', offset);
+}
+
+function renderFocus() {
+  const badges = document.getElementById('streakBadges');
+  badges.innerHTML = STREAK_BADGES.map(b => `
+    <div class="streak-badge ${b.earned ? 'earned' : ''}">
+      <div class="streak-badge-icon" ${b.earned ? '' : 'style="opacity:0.3;"'}>${b.icon}</div>
+      <div class="streak-badge-label">${b[state.language] || b.en}</div>
+    </div>
+  `).join('');
+  updatePomoDisplay();
+}
+
+/* ============================================================
+   ================== AI CHAT MODULE ============================
+   ============================================================ */
+
+/**
+ * getAIResponse(messages, context)
+ * 
+ * This is the PLUGGABLE AI response function.
+ * 
+ * ============================================================
+ * TO CONNECT A REAL LLM API:
+ * Replace the mock logic below with an API call, e.g.:
+ * 
+ * async function getAIResponse(messages, context) {
+ *   const response = await fetch('https://api.openai.com/v1/chat/completions', {
+ *     method: 'POST',
+ *     headers: {
+ *       'Content-Type': 'application/json',
+ *       // Use a backend proxy to keep your API key secure
+ *       'Authorization': 'Bearer YOUR_BACKEND_PROXY_ENDPOINT'
+ *     },
+ *     body: JSON.stringify({
+ *       model: 'gpt-4',
+ *       messages: [
+ *         { role: 'system', content: buildSystemPrompt(context) },
+ *         ...messages
+ *       ],
+ *       temperature: 0.7,
+ *       max_tokens: 800
+ *     })
+ *   });
+ *   const data = await response.json();
+ *   return data.choices[0].message.content;
+ * }
+ * ============================================================
+ * 
+ * The mock implementation below simulates realistic responses
+ * for demo purposes. It references the student's actual data
+ * (subjects, deadlines, grades) from the app state.
+ */
+async function getAIResponse(messages, context) {
+  const lastMsg = messages[messages.length - 1]?.content?.toLowerCase() || '';
+  const mode = context.mode || 'general';
+
+  // Simulate typing delay
+  await new Promise(r => setTimeout(r, 800 + Math.random() * 1200));
+
+  const lang = state.language;
+  const studentName = 'Nino';
+  const subjects = state.selectedSubjects.join(', ');
+  const weakTopics = MOCK_WEAK_TOPICS.map(t => t[lang] || t.en).join(', ');
+  const nextDeadline = MOCK_DEADLINES[0]?.title[lang] || MOCK_DEADLINES[0]?.title.en;
+  const avg = MOCK_GRADES.reduce((s, g) => s + g.avg, 0) / MOCK_GRADES.length;
+
+  // Teaching-first: if asked for direct answer
+  if (lastMsg.includes('just tell me') || lastMsg.includes('give me the answer') || lastMsg.includes('პასუხი მითხარი') || lastMsg.includes('მეც პასუხი')) {
+    return lang === 'ka'
+      ? '🎓 მე ვარ შენი სასწავლო ასისტენტი და ჩემი მიზანია რომ გაიგო მასალა, არა მხოლოდ პასუხი მიიღო. მოდი ერთად მივყვეთ ნაბიჯ-ნაბიჯ! რა გკითხავს კონკრეტულად?'
+      : '🎓 I\'m here to help you learn, not just give answers — understanding matters more than memorizing! Let me walk you through it step by step. What specifically are you working on?';
+  }
+
+  // Mode-specific responses
+  if (mode === 'explain' || lastMsg.includes('explain') || lastMsg.includes('განიხილე') || lastMsg.includes('რა არის')) {
+    const explanations = {
+      math: lang === 'ka'
+        ? '📐 მათემატიკა: კვადრატული განტოლება არის ax² + bx + c = 0 ფორმის განტოლება. ამოხსნის ფორმულაა: x = (-b ± √(b²-4ac)) / 2a. დისკრიმინანტი D = b²-4ac განსაზღვრავს ამონახსნების რაოდენობას: D>0 — ორი ამონახსნი, D=0 — ერთი, D<0 — არ არის რეალური ამონახსნი.'
+        : '📐 A quadratic equation has the form ax² + bx + c = 0. To solve it, use the quadratic formula: x = (-b ± √(b²-4ac)) / 2a. The discriminant D = b²-4ac tells you how many solutions exist: D>0 means two solutions, D=0 means one, D<0 means no real solutions.',
+      physics: lang === 'ka'
+        ? '⚡ ფიზიკა: ნიუტონის სამი კანონია: 1) სხეულ ინარჩუნებს უძრავ ან თანაბარ მოძრაობას, თუ მასზე ძალა არ მოქმედებს. 2) F = ma — ძალა ტოლია მასა გამრავლებული აჩქარებაზე. 3) ყოველ ქმედებას აქვს ტოლი და საპირისპირო უკუქმედება.'
+        : '⚡ Physics — Newton\'s Three Laws: 1) An object stays at rest or in uniform motion unless acted upon by a force (inertia). 2) F = ma — Force equals mass times acceleration. 3) For every action, there is an equal and opposite reaction.',
+      biology: lang === 'ka'
+        ? '🔬 ბიოლოგია: უჯრედის გაყოფა (მიტოზი) გადის 4 ფაზას: პროფაზა, მეტაფაზა, ანაფაზა, ტელოფაზა. შედეგად მიიღება ორი იდენტური ქალიშვილი უჯრედი. მეიოზი კი ქმნის 4 უჯრედს ნახევარი ქრომოსომებით — ეს სასქესო უჯრედების წარმოქმნაა.'
+        : '🔬 Biology — Cell Division: Mitosis has 4 phases: Prophase, Metaphase, Anaphase, Telophase. It produces 2 identical daughter cells. Meiosis creates 4 cells with half the chromosomes — this is how gametes (sex cells) are formed.',
+    };
+    for (const key of Object.keys(explanations)) {
+      if (lastMsg.includes(key)) return explanations[key];
+    }
+    return lang === 'ka'
+      ? `📚 რა თემაზე გინდა განმარტება? შენ სწავლობ: ${subjects}. შემიძლია აგიხსნა ნებისმიერი თემა ნაბიჯ-ნაბიჯ. მაგალითად, მითხარი "რა არის კვადრატული განტოლება" ან "ახსენი ნიუტონის კანონები".`
+      : `📚 What topic would you like me to explain? You're studying: ${subjects}. I can break down any topic step by step. Just say something like "What is a quadratic equation?" or "Explain Newton's laws."`;
+  }
+
+  if (mode === 'homework' || lastMsg.includes('homework') || lastMsg.includes('საშინაო')) {
+    return lang === 'ka'
+      ? `📝 საშინაო დავალების დახმარება:\n\nშენ გაქვს მოახლოებული: "${nextDeadline}"\n\n💡 მინიშნება: დაიწყე ამოცანის ყურადღიანი წაკითხვით. რა მოცემულია და რა უნდა იპოვო? თუ გაგიჭირდა, მითხარი კონკრეტული ამოცანა და ნაბიჯ-ნაბიჯ გაგიძღვები.\n\n🎯 Academic integrity reminder: ჩვენი მიზანია ისწავლო, არა მხოლოდ პასუხი მიიღო!`
+      : `📝 Homework Helper:\n\nYou have this coming up: "${nextDeadline}"\n\n💡 Hint: Start by reading the problem carefully. What's given and what do you need to find? If you're stuck on a specific problem, tell me and I'll walk you through it step by step.\n\n🎯 Academic integrity reminder: The goal is to learn, not just get the answer!`;
+  }
+
+  if (mode === 'quiz' || lastMsg.includes('quiz') || lastMsg.includes('ქვიზ')) {
+    return lang === 'ka'
+      ? `🧠 მოდი ქვიზი ჩავატაროთ ${state.selectedSubjects[0] || 'Math'}-ზე!\n\nკითხვა 1: რა არის კვადრატული განტოლების ზოგადი ფორმა?\n\nა) ax + b = 0\nბ) ax² + bx + c = 0\nგ) a/x + b = 0\nდ) ax³ + bx = 0\n\nპასუხი დაწერე! (სწორია: ბ)`
+      : `🧠 Let me quiz you on ${state.selectedSubjects[0] || 'Math'}!\n\nQuestion 1: What is the general form of a quadratic equation?\n\nA) ax + b = 0\nB) ax² + bx + c = 0\nC) a/x + b = 0\nD) ax³ + bx = 0\n\nType your answer! (Correct: B)`;
+  }
+
+  if (mode === 'plan' || lastMsg.includes('plan') || lastMsg.includes('გეგმა')) {
+    return lang === 'ka'
+      ? `📅 შენი კვირის გეგმა:\n\n🔴 ორშ: მათემატიკა (კვადრატული განტოლებები) — 45 წთ\n🔴 ორშ: ფიზიკა (ნიუტონის კანონები) — 30 წთ\n🟡 სამ: ინგლისური (ზმნის დროები) — 30 წთ\n🟡 სამ: ბიოლოგია (უჯრედის გაყოფა) — 30 წთ\n🟢 ოთხ: ქართული ლიტერატურა — 25 წთ\n🔴 ოთხ: მათემატიკა (პრაქტიკული ამოცანები) — 45 წთ\n🔴 ხუთ: ფიზიკის ლაბორატორიული — 40 წთ\n\n💡 რეკომენდაცია: ფოკუსირდი სუსტ თემებზე: ${weakTopics}`
+      : `📅 Your optimized weekly plan:\n\n🔴 Mon: Math (quadratic equations) — 45 min\n🔴 Mon: Physics (Newton's laws) — 30 min\n🟡 Tue: English (verb tenses) — 30 min\n🟡 Tue: Biology (cell division) — 30 min\n🟢 Wed: Georgian literature — 25 min\n🔴 Wed: Math (practice problems) — 45 min\n🔴 Thu: Physics lab report — 40 min\n\n💡 Tip: Focus on your weaker areas: ${weakTopics}. Use the Pomodoro timer for focused sessions!`;
+  }
+
+  if (mode === 'exam' || lastMsg.includes('exam') || lastMsg.includes('გამოცდა')) {
+    return lang === 'ka'
+      ? `📖 გამოცდის მომზადება:\n\n📊 შენი მიმდინარე საშუალო: ${avg.toFixed(1)}/10\n⏰ ფიზიკის გამოცდა 3 დღეში!\n\n🎯 გეგმა:\n• დღეს: თავები 5-6 განმეორება (მექანიკა)\n• ხვალ: თავი 7 + პრაქტიკული ამოცანები\n• ზეგ: სრული განმეორება + თვითმყოფადი ქვიზი\n\n💡 გამოიყენე ფლეშბარათები ფორმულების დასამახსოვრებლად! ვარჯიშის განყოფილებაში ქვიზიც შეგიძლია გაიარო.`
+      : `📖 Exam Prep Plan:\n\n📊 Your current average: ${avg.toFixed(1)}/10\n⏰ Physics test in 3 days!\n\n🎯 Study plan:\n• Today: Review chapters 5-6 (mechanics)\n• Tomorrow: Chapter 7 + practice problems\n• Day after: Full review + self-quiz\n\n💡 Use flashcards for formulas! You can also take practice quizzes in the Practice section.`;
+  }
+
+  if (mode === 'flashcards' || lastMsg.includes('flashcard') || lastMsg.includes('ფლეშბარათ')) {
+    return lang === 'ka'
+      ? '🗂️ ფლეშბარათები მზადაა! გადადი ვარჯიშის განყოფილებაში ფლეშბარათების გამოსაყენებლად. შემიძლია შევქმნა ბარათები ნებისმიერ თემაზე — უბრალოდ მითხარი რომელ საგანზე.'
+      : '🗂️ Flashcards ready! Head to the Practice section to use flashcards. I can generate cards on any topic — just tell me which subject you\'d like to focus on.';
+  }
+
+  // General response with data awareness
+  return lang === 'ka'
+    ? `გამარჯობა ${studentName}! 🌟\n\nმე შენი AI სასწავლო ასისტენტი ვარ. ვიცი რომ:\n• შენი საგნებია: ${subjects}\n• საშუალო ნიშანი: ${avg.toFixed(1)}/10\n• მოახლოებული ვადა: "${nextDeadline}"\n• სუსტი თემები: ${weakTopics}\n\nშემიძლია დაგეხმარო:\n📖 თემის ახსნა\n📝 საშინაო დავალება (მინიშნებებით)\n🧠 ქვიზი\n🗂️ ფლეშბარათები\n📅 კვირის დაგეგმვა\n📖 გამოცდის მომზადება\n\nრა გინდა რომ გააკეთო?`
+    : `Hey ${studentName}! 🌟\n\nI'm your AI study assistant. I know that:\n• Your subjects: ${subjects}\n• Current average: ${avg.toFixed(1)}/10\n• Upcoming: "${nextDeadline}"\n• Weak areas: ${weakTopics}\n\nI can help you with:\n📖 Explain a topic\n📝 Homework help (with hints first)\n🧠 Quiz you\n🗂️ Make flashcards\n📅 Plan your week\n📖 Exam prep\n\nWhat would you like to do?`;
+}
+
+function buildChatContext() {
+  return {
+    mode: state.chatMode,
+    subjects: state.selectedSubjects,
+    grades: MOCK_GRADES,
+    deadlines: MOCK_DEADLINES,
+    weakTopics: MOCK_WEAK_TOPICS,
+    language: state.language,
+  };
+}
+
+function openChat() {
+  document.getElementById('chatOverlay').classList.add('open');
+  document.getElementById('chatInput').focus();
+  if (state.chatMessages.length === 0) {
+    addChatMessage('assistant', getGreetingMessage());
+    showChatSuggestions();
+  }
+}
+
+function closeChat() {
+  document.getElementById('chatOverlay').classList.remove('open');
+}
+
+function getGreetingMessage() {
+  return state.language === 'ka'
+    ? `გამარჯობა! 👋 მე StudyHub-ის AI ასისტენტი ვარ. შემიძლია დაგეხმარო გაკვეთილებში, საშინაო დავალებაში, ქვიზებში და ბევრ სხვა რამეში. რა გინდა რომ გააკეთო?`
+    : `Hi there! 👋 I'm StudyHub's AI assistant. I can help with lessons, homework, quizzes, study planning, and more. What would you like to work on?`;
+}
+
+function showChatSuggestions() {
+  const suggestions = state.language === 'ka'
+    ? ['📖 ახსენი კვადრატული განტოლება', '📝 საშინაოში დამეხმარე', '🧠 ქვიზი ფიზიკაზე', '📅 დაგეგმე ჩემი კვირა', '📖 გამოცდის მომზადება']
+    : ['📖 Explain quadratic equations', '📝 Help with homework', '🧠 Quiz me on physics', '📅 Plan my week', '📖 Exam prep'];
+  const div = document.getElementById('chatSuggestions');
+  div.innerHTML = suggestions.map(s => `<button class="chat-suggestion-btn" onclick="useSuggestion(this)">${s}</button>`).join('');
+}
+
+function useSuggestion(btn) {
+  document.getElementById('chatInput').value = btn.textContent;
+  sendChat();
+}
+
+function addChatMessage(role, content) {
+  state.chatMessages.push({ role, content });
+  const div = document.getElementById('chatMessages');
+  const msgDiv = document.createElement('div');
+  msgDiv.className = `chat-message ${role}`;
+  msgDiv.innerHTML = `
+    <div class="chat-msg-avatar" aria-hidden="true">${role === 'assistant' ? '🤖' : '👤'}</div>
+    <div>
+      <div class="chat-msg-bubble">${content.replace(/\n/g, '<br>')}</div>
+      ${role === 'assistant' ? `<div class="chat-msg-actions">
+        <button class="chat-msg-action-btn" onclick="copyMessage(this)" aria-label="Copy message">📋 Copy</button>
+        <button class="chat-msg-action-btn" onclick="showToast('${state.language==='ka'?'შენახულია კონსპექტებში':'Saved to notes'}','success')" aria-label="Save to notes">💾 Save</button>
+      </div>` : ''}
+    </div>
+  `;
+  div.appendChild(msgDiv);
+  div.scrollTop = div.scrollHeight;
+}
+
+function showTypingIndicator() {
+  const div = document.getElementById('chatMessages');
+  const typing = document.createElement('div');
+  typing.className = 'chat-message assistant';
+  typing.id = 'typingIndicator';
+  typing.innerHTML = `<div class="chat-msg-avatar" aria-hidden="true">🤖</div><div class="chat-typing"><div class="chat-typing-dot"></div><div class="chat-typing-dot"></div><div class="chat-typing-dot"></div></div>`;
+  div.appendChild(typing);
+  div.scrollTop = div.scrollHeight;
+}
+
+function removeTypingIndicator() {
+  const el = document.getElementById('typingIndicator');
+  if (el) el.remove();
+}
+
+async function sendChat() {
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  addChatMessage('user', text);
+  showTypingIndicator();
+  try {
+    const response = await getAIResponse(state.chatMessages, buildChatContext());
+    removeTypingIndicator();
+    addChatMessage('assistant', response);
+  } catch (e) {
+    removeTypingIndicator();
+    addChatMessage('assistant', state.language === 'ka' ? 'უკაცრავად, რაღაც პრობლემა მოხდა. სცადე თავიდან.' : 'Sorry, something went wrong. Please try again.');
+  }
+}
+
+function setChatMode(btn, mode) {
+  document.querySelectorAll('.chat-mode-tab').forEach(t => t.classList.remove('active'));
+  btn.classList.add('active');
+  state.chatMode = mode;
+}
+
+function copyMessage(btn) {
+  const bubble = btn.closest('.chat-message').querySelector('.chat-msg-bubble');
+  navigator.clipboard.writeText(bubble.textContent).then(() => {
+    showToast(state.language === 'ka' ? 'დაკოპირებულია!' : 'Copied!', 'success');
+  });
+}
+
+/* ============================================================
+   ================== NOTIFICATIONS =============================
+   ============================================================ */
+function toggleNotifications() {
+  const panel = document.getElementById('notifPanel');
+  panel.classList.toggle('open');
+  if (panel.classList.contains('open')) renderNotifications();
+}
+
+function renderNotifications() {
+  const list = document.getElementById('notifList');
+  list.innerHTML = state.notifications.map((n, i) => `
+    <div class="notif-item ${n.unread ? 'unread' : ''}" onclick="markRead(${i})">
+      <div class="notif-icon" style="background:var(--bg-tertiary);">${n.icon}</div>
+      <div class="notif-content">
+        <div class="notif-title">${n.title[state.language] || n.title.en}</div>
+        <div class="notif-desc">${n.desc[state.language] || n.desc.en}</div>
+        <div class="notif-time">${n.time[state.language] || n.time.en}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function markRead(idx) {
+  state.notifications[idx].unread = false;
+  updateNotifBadge();
+  renderNotifications();
+}
+
+function clearNotifications() {
+  state.notifications = [];
+  updateNotifBadge();
+  renderNotifications();
+}
+
+function updateNotifBadge() {
+  const count = state.notifications.filter(n => n.unread).length;
+  const badge = document.getElementById('notifBadge');
+  badge.textContent = count;
+  badge.style.display = count > 0 ? 'flex' : 'none';
+}
+
+/* ============================================================
+   ================== SEARCH ====================================
+   ============================================================ */
+function openSearch() {
+  document.getElementById('searchOverlay').classList.add('open');
+  document.getElementById('searchInput').focus();
+}
+
+function closeSearch() {
+  document.getElementById('searchOverlay').classList.remove('open');
+  document.getElementById('searchInput').value = '';
+  document.getElementById('searchResults').innerHTML = '';
+}
+
+function doSearch(query) {
+  const results = document.getElementById('searchResults');
+  if (!query.trim()) { results.innerHTML = ''; return; }
+  const q = query.toLowerCase();
+  let items = [];
+
+  // Search tasks
+  state.plannerTasks.forEach(t => {
+    if (t.text.toLowerCase().includes(q)) items.push({ icon: '📝', text: t.text, type: 'Task', action: `navigateTo('planner');closeSearch();` });
+  });
+  // Search subjects/grades
+  MOCK_GRADES.forEach(g => {
+    if (g.subject.toLowerCase().includes(q)) items.push({ icon: '📊', text: g.subject + ` — Avg: ${g.avg}`, type: 'Grade', action: `navigateTo('grades');closeSearch();` });
+  });
+  // Search books
+  MOCK_BOOKS.forEach(b => {
+    const title = b.title.en + ' ' + (b.title.ka || '');
+    if (title.toLowerCase().includes(q)) items.push({ icon: '📖', text: b.title.en, type: 'Textbook', action: `navigateTo('library');closeSearch();` });
+  });
+  // Search deadlines
+  MOCK_DEADLINES.forEach(d => {
+    const title = d.title.en + ' ' + (d.title.ka || '');
+    if (title.toLowerCase().includes(q)) items.push({ icon: '📅', text: d.title.en, type: 'Deadline', action: `navigateTo('dashboard');closeSearch();` });
+  });
+
+  results.innerHTML = items.length > 0
+    ? items.map(item => `
+      <div class="search-result-item" onclick="${item.action}">
+        <div class="search-result-icon">${item.icon}</div>
+        <div><div class="search-result-text">${item.text}</div><div class="search-result-type">${item.type}</div></div>
+      </div>
+    `).join('')
+    : `<div style="padding:20px;text-align:center;color:var(--text-tertiary);">${state.language === 'ka' ? 'შედეგი ვერ მოიძებნა' : 'No results found'}</div>`;
+}
+
+/* ============================================================
+   ================== ACCESSIBILITY =============================
+   ============================================================ */
+function toggleA11yPanel() {
+  document.getElementById('a11yPanel').classList.toggle('open');
+  document.getElementById('notifPanel').classList.remove('open');
+}
+
+function setTextSize(size) {
+  document.documentElement.setAttribute('data-text-size', size);
+  document.querySelectorAll('#textSizeBtns .a11y-opt-btn').forEach(b => b.classList.remove('active'));
+  const sizes = ['small','medium','large','extra-large'];
+  const idx = sizes.indexOf(size);
+  document.querySelectorAll('#textSizeBtns .a11y-opt-btn')[idx]?.classList.add('active');
+  saveA11y('textSize', size);
+}
+
+function setLineSpacing(val) {
+  document.documentElement.style.setProperty('--line-height', val);
+  document.querySelectorAll('#lineSpacingBtns .a11y-opt-btn').forEach(b => b.classList.remove('active'));
+  const vals = ['1.4','1.6','2.0'];
+  const idx = vals.indexOf(val);
+  document.querySelectorAll('#lineSpacingBtns .a11y-opt-btn')[idx]?.classList.add('active');
+  saveA11y('lineSpacing', val);
+}
+
+function toggleDyslexic() {
+  const on = document.getElementById('dyslexicToggle')?.checked || document.getElementById('a11yDyslexic')?.checked;
+  document.body.style.fontFamily = on ? "'Comic Sans MS', 'Open Dyslexic', var(--font-family)" : 'var(--font-family)';
+  saveA11y('dyslexic', on);
+  // sync both toggles
+  const d = document.getElementById('dyslexicToggle'); if (d) d.checked = on;
+  const a = document.getElementById('a11yDyslexic'); if (a) a.checked = on;
+}
+
+function toggleHighContrast() {
+  const on = document.getElementById('highContrastToggle')?.checked || document.getElementById('a11yHighContrast')?.checked;
+  document.documentElement.setAttribute('data-high-contrast', on);
+  saveA11y('highContrast', on);
+  const d = document.getElementById('highContrastToggle'); if (d) d.checked = on;
+  const a = document.getElementById('a11yHighContrast'); if (a) a.checked = on;
+}
+
+function toggleReducedMotion() {
+  const on = document.getElementById('reducedMotionToggle')?.checked || document.getElementById('a11yReducedMotion')?.checked;
+  document.documentElement.setAttribute('data-reduced-motion', on);
+  saveA11y('reducedMotion', on);
+  const d = document.getElementById('reducedMotionToggle'); if (d) d.checked = on;
+  const a = document.getElementById('a11yReducedMotion'); if (a) a.checked = on;
+}
+
+function saveA11y(key, val) {
+  try {
+    const data = JSON.parse(localStorage.getItem(LS_KEYS.a11y) || '{}');
+    data[key] = val;
+    localStorage.setItem(LS_KEYS.a11y, JSON.stringify(data));
+  } catch(e) {}
+}
+
+function loadA11y() {
+  try {
+    const data = JSON.parse(localStorage.getItem(LS_KEYS.a11y) || '{}');
+    if (data.textSize) setTextSize(data.textSize);
+    if (data.lineSpacing) setLineSpacing(data.lineSpacing);
+    if (data.dyslexic) { document.getElementById('dyslexicToggle').checked = true; document.getElementById('a11yDyslexic').checked = true; toggleDyslexic(); }
+    if (data.highContrast) { document.getElementById('highContrastToggle').checked = true; document.getElementById('a11yHighContrast').checked = true; toggleHighContrast(); }
+    if (data.reducedMotion) { document.getElementById('reducedMotionToggle').checked = true; document.getElementById('a11yReducedMotion').checked = true; toggleReducedMotion(); }
+  } catch(e) {}
+}
+
+/* ============================================================
+   ================== MODAL =====================================
+   ============================================================ */
+function openModal(title, bodyHtml, footerHtml) {
+  document.getElementById('modalTitle').textContent = title;
+  document.getElementById('modalBody').innerHTML = bodyHtml;
+  document.getElementById('modalFooter').innerHTML = footerHtml || '';
+  document.getElementById('modalOverlay').classList.add('open');
+  // Trap focus
+  document.getElementById('modal').focus();
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+}
+
+/* ============================================================
+   ================== TOAST =====================================
+   ============================================================ */
+function showToast(msg, type = 'info') {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = `toast ${type}`;
+  toast.setAttribute('role', 'alert');
+  toast.textContent = msg;
+  container.appendChild(toast);
+  setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 3500);
+}
+
+/* ============================================================
+   ================== FAQ =======================================
+   ============================================================ */
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(f => f.classList.remove('open'));
+  document.querySelectorAll('.faq-question').forEach(q => q.setAttribute('aria-expanded','false'));
+  if (!isOpen) {
+    item.classList.add('open');
+    btn.setAttribute('aria-expanded','true');
+  }
+}
+
+/* ============================================================
+   ================== PRODUCT TOUR ==============================
+   ============================================================ */
+let tourStep = 0;
+function startTour() {
+  tourStep = 0;
+  document.getElementById('tourOverlay').classList.add('open');
+  renderTourStep();
+}
+
+function renderTourStep() {
+  const step = TOUR_STEPS[tourStep];
+  document.getElementById('tourStepCount').textContent = `${tourStep + 1} / ${TOUR_STEPS.length}`;
+  document.getElementById('tourTitle').textContent = step.title[state.language] || step.title.en;
+  document.getElementById('tourDesc').textContent = step.desc[state.language] || step.desc.en;
+  document.getElementById('tourNextBtn').textContent = tourStep === TOUR_STEPS.length - 1 ? t('tourDone') : t('tourNext');
+  // Position tooltip in center
+  const tooltip = document.getElementById('tourTooltip');
+  tooltip.style.top = '50%';
+  tooltip.style.left = '50%';
+  tooltip.style.transform = 'translate(-50%, -50%)';
+}
+
+function nextTourStep() {
+  if (tourStep < TOUR_STEPS.length - 1) {
+    tourStep++;
+    renderTourStep();
+  } else {
+    endTour();
+  }
+}
+
+function endTour() {
+  document.getElementById('tourOverlay').classList.remove('open');
+  localStorage.setItem(LS_KEYS.tourDone, 'true');
+}
+
+/* ============================================================
+   ================== SETTINGS ACTIONS ==========================
+   ============================================================ */
+function exportData() {
+  const data = { state, scoreHistory: state.scoreHistory, plannerTasks: state.plannerTasks, chatMessages: state.chatMessages };
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'studyhub-export.json';
+  a.click();
+  URL.revokeObjectURL(url);
+  showToast(state.language === 'ka' ? 'მონაცემები ექსპორტირებულია!' : 'Data exported!', 'success');
+}
+
+function deleteData() {
+  openModal(
+    state.language === 'ka' ? 'მონაცემების წაშლა' : 'Delete Your Data',
+    `<p style="margin-bottom:16px;">${state.language === 'ka' ? 'დარწმუნებული ხარ? ეს წაშლის ყველა შენ მონაცემს.' : 'Are you sure? This will delete all your data permanently.'}</p>`,
+    `<button class="btn btn-secondary" onclick="closeModal()">${state.language === 'ka' ? 'გაუქმება' : 'Cancel'}</button>
+     <button class="btn btn-danger" onclick="confirmDelete()">${state.language === 'ka' ? 'წაშლა' : 'Delete Everything'}</button>`
+  );
+}
+
+function confirmDelete() {
+  Object.values(LS_KEYS).forEach(k => localStorage.removeItem(k));
+  location.reload();
+}
+
+/* ============================================================
+   ================== KEYBOARD / A11Y ===========================
+   ============================================================ */
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeChat();
+    closeModal();
+    closeSearch();
+    document.getElementById('notifPanel').classList.remove('open');
+    document.getElementById('a11yPanel').classList.remove('open');
+    document.getElementById('tourOverlay').classList.remove('open');
+  }
+  // Ctrl+K for search
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+    e.preventDefault();
+    openSearch();
+  }
+});
+
+// Flashcard keyboard
+document.getElementById('flashcard')?.addEventListener('keydown', e => {
+  if (e.key === ' ' || e.key === 'Enter') { e.preventDefault(); flipFlashcard(); }
+});
+
+/* ============================================================
+   ================== INIT ======================================
+   ============================================================ */
+function init() {
+  loadState();
+  setTheme(state.theme);
+  applyTranslations();
+  loadA11y();
+  updateNotifBadge();
+
+  // Determine initial view
+  if (state.currentView && state.currentView !== 'landing') {
+    navigateTo(state.currentView);
+  } else {
+    navigateTo('landing');
+  }
+
+  // If we've already done onboarding (mock), go to dashboard
+  if (localStorage.getItem(LS_KEYS.tourDone)) {
+    // Could auto-navigate but let user flow through
+  }
+}
+
+init();
+</script>
+</body>
+</html>
